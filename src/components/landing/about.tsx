@@ -109,7 +109,7 @@ export function About({ teachers = [] }: AboutProps) {
                 <div className="w-24 h-24 sm:w-28 sm:h-28 shrink-0 rounded-2xl bg-white p-1.5 shadow-sm border border-slate-200">
                   <div className="w-full h-full bg-slate-100 rounded-xl overflow-hidden relative flex items-center justify-center">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/dra sutini.png" alt="Dra. Sutini" className="w-full h-full object-cover" />
+                    <img src="/dra sutini.png" alt="Dra. Sutini" className="w-full h-full object-cover scale-[1.35] origin-top pt-2" />
                   </div>
                 </div>
                 <div>
