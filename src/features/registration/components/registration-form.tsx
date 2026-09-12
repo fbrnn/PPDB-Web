@@ -252,10 +252,10 @@ export function RegistrationForm({ initialData }: RegistrationFormProps) {
       <Toast ref={toastRef} />
 
       {/* Header Form & Autosave Indicator */}
-      <div className="bg-slate-50 border-b border-slate-200 px-6 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-3">
-            <h2 className="text-xl font-bold text-slate-800">
+      <div className="bg-slate-50 border-b border-slate-200 px-5 sm:px-8 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex-1">
+          <div className="flex flex-wrap items-center gap-3">
+            <h2 className="text-lg sm:text-xl font-bold text-slate-800">
               Formulir Pendaftaran SPMB
             </h2>
             <Tag
@@ -264,40 +264,13 @@ export function RegistrationForm({ initialData }: RegistrationFormProps) {
               className="text-xs px-2.5 py-1"
             />
           </div>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 mt-1.5 leading-relaxed">
             Isi semua tahapan formulir secara teliti sebelum batas akhir pendaftaran.
           </p>
         </div>
 
         {/* Save Status Badge */}
-        <div className="flex items-center gap-3">
-          <div className="text-xs flex items-center gap-1.5 text-slate-500 font-medium">
-            {autosaveStatus === "saving" && (
-              <>
-                <i className="pi pi-spin pi-spinner text-blue-600 text-xs" />
-                <span className="text-blue-600 font-semibold">Menyimpan...</span>
-              </>
-            )}
-            {autosaveStatus === "saved" && (
-              <>
-                <i className="pi pi-check text-emerald-600 text-xs" />
-                <span className="text-emerald-700">Tersimpan di Server</span>
-              </>
-            )}
-            {autosaveStatus === "local" && (
-              <>
-                <i className="pi pi-save text-amber-600 text-xs" />
-                <span className="text-amber-700">Tersimpan di Perangkat Lokal</span>
-              </>
-            )}
-            {autosaveStatus === "error" && (
-              <>
-                <i className="pi pi-exclamation-triangle text-red-600 text-xs" />
-                <span className="text-red-700">Gagal menyimpan</span>
-              </>
-            )}
-          </div>
-
+        <div className="flex flex-row-reverse sm:flex-row items-center justify-between sm:justify-end gap-3 w-full sm:w-auto mt-2 sm:mt-0 pt-3 sm:pt-0 border-t sm:border-0 border-slate-200">
           {!isLocked && (
             <Button
               type="button"
@@ -307,21 +280,47 @@ export function RegistrationForm({ initialData }: RegistrationFormProps) {
               size="small"
               onClick={handleManualSaveDraft}
               loading={isSubmitting}
-              className="text-xs"
+              className="text-xs py-1.5 px-3"
             />
           )}
+          <div className="text-[11px] sm:text-xs flex items-center gap-1.5 text-slate-500 font-medium">
+            {autosaveStatus === "saving" && (
+              <>
+                <i className="pi pi-spin pi-spinner text-blue-600 text-xs" />
+                <span className="text-blue-600 font-semibold">Menyimpan...</span>
+              </>
+            )}
+            {autosaveStatus === "saved" && (
+              <>
+                <i className="pi pi-check text-emerald-600 text-xs" />
+                <span className="text-emerald-700">Tersimpan otomatis</span>
+              </>
+            )}
+            {autosaveStatus === "local" && (
+              <>
+                <i className="pi pi-save text-amber-600 text-xs" />
+                <span className="text-amber-700">Tersimpan lokal</span>
+              </>
+            )}
+            {autosaveStatus === "error" && (
+              <>
+                <i className="pi pi-exclamation-triangle text-red-600 text-xs" />
+                <span className="text-red-700">Gagal menyimpan</span>
+              </>
+            )}
+          </div>
         </div>
       </div>
 
       {/* Catatan Revisi jika status REVISION_REQUIRED */}
       {initialData.status === "REVISION_REQUIRED" && (
-        <div className="p-6 bg-red-50 border-b border-red-200">
+        <div className="p-5 sm:p-6 bg-red-50 border-b border-red-200">
           <Message
             severity="error"
             text={`Catatan Perbaikan dari Panitia: ${
               initialData.revisionNotes || "Harap periksa dan lengkapi data Anda kembali."
             }`}
-            className="w-full text-left"
+            className="w-full text-left text-sm"
           />
         </div>
       )}
@@ -329,8 +328,8 @@ export function RegistrationForm({ initialData }: RegistrationFormProps) {
       {/* Notice jika status SUBMITTED atau VERIFIED */}
       {initialData.status === "SUBMITTED" && (
         <div className="p-4 bg-amber-50 border-b border-amber-200 text-xs text-amber-800 flex items-center gap-2">
-          <i className="pi pi-info-circle text-amber-600 text-sm" />
-          <span>
+          <i className="pi pi-info-circle text-amber-600 text-base" />
+          <span className="leading-relaxed">
             Formulir telah dikirim dan sedang menunggu proses verifikasi oleh panitia SPMB.
           </span>
         </div>
@@ -338,26 +337,30 @@ export function RegistrationForm({ initialData }: RegistrationFormProps) {
 
       {initialData.status === "VERIFIED" && (
         <div className="p-4 bg-emerald-50 border-b border-emerald-200 text-xs text-emerald-800 flex items-center gap-2">
-          <i className="pi pi-check-circle text-emerald-600 text-sm" />
-          <span>
+          <i className="pi pi-check-circle text-emerald-600 text-base" />
+          <span className="leading-relaxed">
             Pendaftaran Anda telah resmi terverifikasi. Data telah dikunci.
           </span>
         </div>
       )}
 
       {/* Stepper Progress */}
-      <div className="py-6 px-4 sm:px-8 border-b border-slate-100 bg-white">
-        <Steps
-          model={stepsItems}
-          activeIndex={activeStep}
-          onSelect={(e) => setActiveStep(e.index as FormStep)}
-          readOnly={false}
-          className="text-xs"
-        />
+      <div className="py-6 px-0 sm:px-8 border-b border-slate-100 bg-white overflow-hidden">
+        <div className="w-full overflow-x-auto pb-2 px-4 sm:px-0 scrollbar-hide">
+          <div className="min-w-[500px]">
+            <Steps
+              model={stepsItems}
+              activeIndex={activeStep}
+              onSelect={(e) => setActiveStep(e.index as FormStep)}
+              readOnly={false}
+              className="text-xs"
+            />
+          </div>
+        </div>
       </div>
 
       {/* Step Content Area */}
-      <div className="p-6 sm:p-10">
+      <div className="p-5 sm:p-10">
         {activeStep === 0 && (
           <PersonalDataStep
             data={formData}
@@ -397,7 +400,7 @@ export function RegistrationForm({ initialData }: RegistrationFormProps) {
       </div>
 
       {/* Navigation Buttons */}
-      <div className="bg-slate-50 border-t border-slate-200 px-6 py-4 flex items-center justify-between">
+      <div className="bg-slate-50 border-t border-slate-200 px-5 sm:px-8 py-4 flex items-center justify-between">
         <div>
           {activeStep > 0 && (
             <Button
@@ -408,6 +411,7 @@ export function RegistrationForm({ initialData }: RegistrationFormProps) {
               size="small"
               onClick={() => setActiveStep((prev) => (prev - 1) as FormStep)}
               disabled={isSubmitting}
+              className="text-xs sm:text-sm px-3 py-2"
             />
           )}
         </div>
@@ -421,18 +425,18 @@ export function RegistrationForm({ initialData }: RegistrationFormProps) {
               iconPos="right"
               size="small"
               onClick={() => setActiveStep((prev) => (prev + 1) as FormStep)}
-              className="bg-blue-600 hover:bg-blue-700 text-white border-none"
+              className="bg-blue-600 hover:bg-blue-700 text-white border-none text-xs sm:text-sm px-4 py-2"
             />
           ) : (
             !isLocked && (
               <Button
                 type="button"
-                label={isSubmitting ? "Mengirimkan Pendaftaran..." : "Kirim Pendaftaran"}
+                label={isSubmitting ? "Mengirimkan..." : "Kirim Pendaftaran"}
                 icon={isSubmitting ? "pi pi-spin pi-spinner" : "pi pi-send"}
                 size="small"
                 loading={isSubmitting}
                 onClick={handleFinalSubmit}
-                className="bg-emerald-600 hover:bg-emerald-700 text-white border-none px-6 shadow-md"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white border-none px-4 sm:px-6 shadow-md text-xs sm:text-sm py-2"
               />
             )
           )}
