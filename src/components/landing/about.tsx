@@ -108,8 +108,8 @@ export function About({ teachers = [] }: AboutProps) {
               <div className="flex flex-col sm:flex-row gap-6 relative z-10">
                 <div className="w-24 h-24 sm:w-28 sm:h-28 shrink-0 rounded-2xl bg-white p-1.5 shadow-sm border border-slate-200">
                   <div className="w-full h-full bg-slate-100 rounded-xl overflow-hidden relative flex items-center justify-center">
-                    {/* Placeholder Foto Kepala Sekolah */}
-                    <UserCheck className="w-10 h-10 text-slate-400" />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/dra sutini.png" alt="Dra. Sutini" className="w-full h-full object-cover" />
                   </div>
                 </div>
                 <div>
