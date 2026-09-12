@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Custom PrimeReact overrides to match modern aesthetics */
+.p-component {
+  font-family: inherit !important;
+}
+
+.p-inputtext,
+.p-dropdown,
+.p-calendar,
+.p-password input {
+  font-size: 0.95rem;
+  border-radius: 0.5rem;
+}
+
+.p-button {
+  border-radius: 0.5rem;
+  font-weight: 500;
+}

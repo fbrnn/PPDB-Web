@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1788799185337,
+      "tag": "0000_futuristic_living_lightning",
+      "breakpoints": true
+    }
+  ]
+}
