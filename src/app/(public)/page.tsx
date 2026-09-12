@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { getCurrentUser } from "@/features/auth/auth";
+import { getTeachers } from "@/features/teachers/queries";
 import { Navbar } from "@/components/landing/navbar";
 import { Hero } from "@/components/landing/hero";
 import { About } from "@/components/landing/about";
@@ -16,13 +17,14 @@ export const metadata: Metadata = {
 
 export default async function PublicLandingPage() {
   const user = await getCurrentUser();
+  const teachers = await getTeachers();
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Navbar userRole={user?.role} />
       <main className="flex-grow">
         <Hero />
-        <About />
+        <About teachers={teachers} />
         <Programs />
         <Facilities />
         <News />

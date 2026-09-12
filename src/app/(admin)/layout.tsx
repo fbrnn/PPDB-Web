@@ -9,6 +9,7 @@ import {
   Users,
   LogOut,
   ExternalLink,
+  GraduationCap,
 } from "lucide-react";
 
 export default async function AdminLayout({
@@ -57,6 +58,13 @@ export default async function AdminLayout({
                 >
                   <Users className="w-4 h-4" />
                   <span>Data Pendaftar</span>
+                </Link>
+                <Link
+                  href="/admin/guru"
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition-colors"
+                >
+                  <GraduationCap className="w-4 h-4" />
+                  <span>Katalog Guru</span>
                 </Link>
                 <Link
                   href="/"

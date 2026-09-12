@@ -15,59 +15,13 @@ import {
   Store
 } from "lucide-react";
 import { motion } from "motion/react";
+import { Teacher } from "@/features/teachers/types";
 
-const teachers = [
-  {
-    id: 1,
-    name: "Dra. Sutini",
-    subject: "Kepala Sekolah",
-    image: "https://ui-avatars.com/api/?name=Sutini&background=0ea5e9&color=fff&size=400",
-  },
-  {
-    id: 2,
-    name: "Budi Santoso, S.Pd., M.Pd.",
-    subject: "Matematika",
-    image: "https://ui-avatars.com/api/?name=Budi+Santoso&background=64748b&color=fff&size=400",
-  },
-  {
-    id: 3,
-    name: "Siti Aminah, S.Kom.",
-    subject: "Produktif TKJ",
-    image: "https://ui-avatars.com/api/?name=Siti+Aminah&background=10b981&color=fff&size=400",
-  },
-  {
-    id: 4,
-    name: "Dwi Saputra, S.T.",
-    subject: "Produktif TKR",
-    image: "https://ui-avatars.com/api/?name=Dwi+Saputra&background=f59e0b&color=fff&size=400",
-  },
-  {
-    id: 5,
-    name: "Rina Wati, S.E.",
-    subject: "Akuntansi",
-    image: "https://ui-avatars.com/api/?name=Rina+Wati&background=ec4899&color=fff&size=400",
-  },
-  {
-    id: 6,
-    name: "Nisa Ulfa, S.Pd.",
-    subject: "Bahasa Inggris",
-    image: "https://ui-avatars.com/api/?name=Nisa+Ulfa&background=8b5cf6&color=fff&size=400",
-  },
-  {
-    id: 7,
-    name: "H. Ahmad Fauzi, S.Ag.",
-    subject: "Pendidikan Agama",
-    image: "https://ui-avatars.com/api/?name=Ahmad+Fauzi&background=14b8a6&color=fff&size=400",
-  },
-  {
-    id: 8,
-    name: "Tri Haryanto, S.Pd.",
-    subject: "Pendidikan Jasmani",
-    image: "https://ui-avatars.com/api/?name=Tri+Haryanto&background=f43f5e&color=fff&size=400",
-  }
-];
+interface AboutProps {
+  teachers?: Teacher[];
+}
 
-export function About() {
+export function About({ teachers = [] }: AboutProps) {
   const steps = [
     {
       num: "01",
@@ -230,7 +184,7 @@ export function About() {
                 <div className="relative aspect-[4/5] overflow-hidden bg-slate-200">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img 
-                    src={teacher.image} 
+                    src={teacher.imageUrl || `https://ui-avatars.com/api/?name=${encodeURIComponent(teacher.name)}&background=0ea5e9&color=fff&size=400`} 
                     alt={teacher.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
