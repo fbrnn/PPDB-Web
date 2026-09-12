@@ -118,16 +118,16 @@ export function LoginForm() {
       </div>
 
       {errorMessage && (
-        <div className="mb-5 p-3.5 rounded-xl bg-red-500/20 border border-red-500/30 flex items-start gap-3 shadow-inner">
-          <i className="pi pi-exclamation-circle text-red-400 text-lg mt-0.5 shrink-0" />
-          <p className="text-sm text-red-100 leading-snug">{errorMessage}</p>
+        <div className="mb-5 p-3 rounded-xl bg-red-500/20 border border-red-500/30 flex items-start gap-2.5 shadow-inner">
+          <i className="pi pi-exclamation-circle text-red-400 text-base mt-[2px] shrink-0" />
+          <p className="text-xs text-red-100 font-normal leading-relaxed">{errorMessage}</p>
         </div>
       )}
 
       {successInfo && step === "OTP" && (
-        <div className="mb-5 p-3.5 rounded-xl bg-blue-500/20 border border-blue-500/30 flex items-start gap-3 shadow-inner">
-          <i className="pi pi-info-circle text-blue-400 text-lg mt-0.5 shrink-0" />
-          <p className="text-sm text-blue-100 leading-snug">{successInfo}</p>
+        <div className="mb-5 p-3 rounded-xl bg-blue-500/20 border border-blue-500/30 flex items-start gap-2.5 shadow-inner">
+          <i className="pi pi-info-circle text-blue-400 text-base mt-[2px] shrink-0" />
+          <p className="text-xs text-blue-100 font-normal leading-relaxed">{successInfo}</p>
         </div>
       )}
 
