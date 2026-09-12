@@ -25,9 +25,9 @@ export function Hero() {
       {/* Simple dark gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-slate-950/30" />
 
-      {/* Content — positioned at bottom-left like Polsek Bendo reference */}
-      <div className="absolute inset-0 flex flex-col justify-end" style={{ zIndex: 10 }}>
-        <div className="max-w-7xl mx-auto w-full px-6 sm:px-8 lg:px-10 pb-8 md:pb-12">
+      {/* Content — vertically centered and aligned left */}
+      <div className="absolute inset-0 flex flex-col justify-center" style={{ zIndex: 10 }}>
+        <div className="max-w-7xl mx-auto w-full px-6 sm:px-8 lg:px-10">
           {/* Main Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -48,8 +48,6 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-sm sm:text-base text-slate-300 mb-6 max-w-lg leading-relaxed"
           >
-            Sistem Penerimaan Murid Baru (SPMB) online resmi — cepat, mudah,
-            dan terintegrasi secara transparan.
           </motion.p>
 
           {/* CTA Buttons */}
