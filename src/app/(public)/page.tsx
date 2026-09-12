@@ -3,7 +3,6 @@ import { getCurrentUser } from "@/features/auth/auth";
 import { Navbar } from "@/components/landing/navbar";
 import { Hero } from "@/components/landing/hero";
 import { About } from "@/components/landing/about";
-import { Teachers } from "@/components/landing/teachers";
 import { Programs } from "@/components/landing/programs";
 import { Facilities } from "@/components/landing/facilities";
 import { News } from "@/components/landing/news";
@@ -24,7 +23,6 @@ export default async function PublicLandingPage() {
       <main className="flex-grow">
         <Hero />
         <About />
-        <Teachers />
         <Programs />
         <Facilities />
         <News />

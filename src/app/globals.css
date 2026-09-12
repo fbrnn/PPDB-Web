@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: "Futura", "Trebuchet MS", var(--font-futura), sans-serif;
+}
+
 :root {
   --background: #f8fafc;
   --foreground: #0f172a;
