@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
-import Link from "next/link";
 import { getCurrentUser } from "@/features/auth/auth";
 import { LoginForm } from "@/features/auth/components/login-form";
 
@@ -21,22 +20,30 @@ export default async function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex flex-col justify-center items-center p-4">
-      <div className="mb-6">
-        <Link
-          href="/"
-          className="text-sm font-medium text-slate-500 hover:text-blue-600 transition-colors flex items-center gap-2"
-        >
-          <i className="pi pi-arrow-left text-xs" />
-          <span>Kembali ke Beranda Utama</span>
-        </Link>
+    <main className="min-h-screen relative flex flex-col justify-center items-center p-4">
+      {/* Full Background Image */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: "url('/image.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
+      
+      {/* Overlay sangat tipis hanya agar teks tidak tenggelam jika gambar terlalu terang */}
+      <div className="absolute inset-0 bg-black/20" />
+
+      {/* Main Content (Centered) */}
+      <div className="relative z-10 w-full max-w-md">
+        <LoginForm />
+
+        {/* Footer */}
+        <footer className="mt-8 text-center text-xs text-white/70 font-medium tracking-wide drop-shadow-md">
+          &copy; {new Date().getFullYear()} SPMB SMK PGRI 2 Mejayan.
+        </footer>
       </div>
-
-      <LoginForm />
-
-      <footer className="mt-8 text-center text-xs text-slate-400">
-        &copy; {new Date().getFullYear()} SPMB Online. Hak cipta dilindungi undang-undang.
-      </footer>
     </main>
   );
 }

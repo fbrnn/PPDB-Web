@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useRef, useTransition } from "react";
+import React, { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
@@ -11,7 +12,7 @@ import { requestOtp, verifyOtp } from "../actions";
 export function LoginForm() {
   const router = useRouter();
   const toastRef = useRef<Toast>(null);
-  const [isPending, startTransition] = useTransition();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [step, setStep] = useState<"EMAIL" | "OTP">("EMAIL");
   const [email, setEmail] = useState("");
@@ -19,7 +20,7 @@ export function LoginForm() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successInfo, setSuccessInfo] = useState<string | null>(null);
 
-  const handleRequestOtp = (e: React.FormEvent) => {
+  const handleRequestOtp = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
     setSuccessInfo(null);
@@ -29,7 +30,8 @@ export function LoginForm() {
       return;
     }
 
-    startTransition(async () => {
+    setIsSubmitting(true);
+    try {
       const res = await requestOtp(email.trim());
       if (res.success) {
         setStep("OTP");
@@ -49,10 +51,12 @@ export function LoginForm() {
           life: 4000,
         });
       }
-    });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handleVerifyOtp = (e: React.FormEvent) => {
+  const handleVerifyOtp = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
 
@@ -61,7 +65,8 @@ export function LoginForm() {
       return;
     }
 
-    startTransition(async () => {
+    setIsSubmitting(true);
+    try {
       const res = await verifyOtp(email.trim(), otpCode.trim());
       if (res.success && res.data) {
         toastRef.current?.show({
@@ -73,7 +78,6 @@ export function LoginForm() {
 
         // Redirect ke dashboard sesuai role
         router.push(res.data.redirectUrl);
-        router.refresh();
       } else {
         setErrorMessage(res.message);
         toastRef.current?.show({
@@ -82,96 +86,63 @@ export function LoginForm() {
           detail: res.message,
           life: 4000,
         });
+        setIsSubmitting(false);
       }
-    });
+    } catch (error) {
+      toastRef.current?.show({
+        severity: "error",
+        summary: "Kesalahan Sistem",
+        detail: "Terjadi kesalahan. Silakan coba lagi.",
+        life: 4000,
+      });
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <div className="w-full max-w-md bg-white rounded-2xl shadow-xl border border-slate-100 p-8">
+    <div className="w-full max-w-[400px] mx-auto bg-slate-900/20 backdrop-blur-xl rounded-[2rem] shadow-2xl border border-white/20 p-8">
       <Toast ref={toastRef} />
 
       <div className="text-center mb-8">
-        <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mx-auto mb-4 font-bold text-xl">
-          <i className="pi pi-shield text-xl" />
+        <div className="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center mx-auto mb-5 border border-white/20 shadow-inner">
+          <i className="pi pi-desktop text-2xl" />
         </div>
-        <h1 className="text-2xl font-bold text-slate-800 tracking-tight">
-          Masuk ke Portal SPMB
+        <h1 className="text-2xl font-bold text-white tracking-tight">
+          SPMB Online
         </h1>
-        <p className="text-sm text-slate-500 mt-2">
-          {step === "EMAIL"
-            ? "Masukkan alamat email Anda untuk menerima kode OTP masuk."
-            : `Masukkan 6 digit kode OTP yang dikirim ke ${email}`}
+        <p className="text-[11px] text-white/70 mt-2 font-medium tracking-wide px-4">
+          Sistem Penerimaan Murid Baru
+          <br />
+          SMK PGRI 2 Mejayan
         </p>
       </div>
 
       {errorMessage && (
-        <div className="mb-6">
-          <Message severity="error" text={errorMessage} className="w-full" />
+        <div className="mb-5 p-3.5 rounded-xl bg-red-500/20 border border-red-500/30 flex items-start gap-3 shadow-inner">
+          <i className="pi pi-exclamation-circle text-red-400 text-lg mt-0.5 shrink-0" />
+          <p className="text-sm text-red-100 leading-snug">{errorMessage}</p>
         </div>
       )}
 
       {successInfo && step === "OTP" && (
-        <div className="mb-6">
-          <Message severity="info" text={successInfo} className="w-full" />
+        <div className="mb-5 p-3.5 rounded-xl bg-blue-500/20 border border-blue-500/30 flex items-start gap-3 shadow-inner">
+          <i className="pi pi-info-circle text-blue-400 text-lg mt-0.5 shrink-0" />
+          <p className="text-sm text-blue-100 leading-snug">{successInfo}</p>
         </div>
       )}
 
       {step === "EMAIL" ? (
         <form onSubmit={handleRequestOtp} className="space-y-5">
-          <div className="flex flex-col gap-2">
-            <label
-              htmlFor="email"
-              className="text-sm font-medium text-slate-700"
-            >
-              Alamat Email Aktif
-            </label>
-            <span className="p-input-icon-left w-full">
-              <i className="pi pi-envelope text-slate-400 pl-3" />
-              <InputText
-                id="email"
-                type="email"
-                placeholder="nama@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-10 py-2.5"
-                disabled={isPending}
-                required
-                autoFocus
-              />
-            </span>
-          </div>
-
-          <Button
-            type="submit"
-            label={isPending ? "Mengirim Kode..." : "Kirim Kode OTP"}
-            icon={isPending ? "pi pi-spin pi-spinner" : "pi pi-send"}
-            loading={isPending}
-            className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white border-none shadow-md font-medium"
-          />
-
-          <p className="text-xs text-center text-slate-400 mt-4 leading-relaxed">
-            Sistem kami menggunakan verifikasi tanpa kata sandi (Passwordless OTP)
-            untuk keamanan akun dan kemudahan akses Anda.
-          </p>
-        </form>
-      ) : (
-        <form onSubmit={handleVerifyOtp} className="space-y-5">
-          <div className="flex flex-col gap-2">
-            <label
-              htmlFor="otp"
-              className="text-sm font-medium text-slate-700"
-            >
-              Kode Verifikasi (6 Digit)
-            </label>
+          <div className="relative w-full flex items-center">
+            <i className="pi pi-user text-white/50 absolute left-4" />
             <InputText
-              id="otp"
-              type="text"
-              maxLength={6}
-              placeholder="123456"
-              value={otpCode}
-              onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, ""))}
-              className="w-full text-center text-2xl tracking-widest font-mono py-2.5"
-              disabled={isPending}
+              id="email"
+              type="email"
+              placeholder="Email Aktif"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full pl-11 pr-4 py-3 text-sm bg-black/40 border border-white/10 text-white placeholder:text-white/40 rounded-xl focus:bg-black/60 focus:border-white/30 transition-all hover:bg-black/50"
+              disabled={isSubmitting}
               required
               autoFocus
             />
@@ -179,13 +150,54 @@ export function LoginForm() {
 
           <Button
             type="submit"
-            label={isPending ? "Memverifikasi..." : "Verifikasi & Masuk"}
-            icon={isPending ? "pi pi-spin pi-spinner" : "pi pi-check"}
-            loading={isPending}
-            className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white border-none shadow-md font-medium"
-          />
+            disabled={isSubmitting}
+            className="w-full py-3 flex justify-center items-center gap-2 bg-[#2b90d9] hover:bg-[#207bbd] text-white rounded-xl shadow-lg shadow-blue-500/20 border-none text-sm font-bold tracking-wide transition-all"
+          >
+            {isSubmitting ? (
+              <i className="pi pi-spin pi-spinner" />
+            ) : null}
+            <span>{isSubmitting ? "MENGIRIM..." : "KIRIM OTP"}</span>
+          </Button>
 
-          <div className="flex items-center justify-between text-xs pt-2">
+          <div className="pt-4 text-center">
+            <p className="text-[11px] text-white/60">
+              Ingin kembali?{" "}
+              <Link href="/" className="text-[#3ba2eb] hover:text-[#52b1f3] font-semibold transition-colors">
+                Ke Beranda
+              </Link>
+            </p>
+          </div>
+        </form>
+      ) : (
+        <form onSubmit={handleVerifyOtp} className="space-y-5">
+          <div className="relative w-full flex items-center">
+            <i className="pi pi-lock text-white/50 absolute left-4" />
+            <InputText
+              id="otp"
+              type="text"
+              maxLength={6}
+              placeholder="Kode 6 Digit"
+              value={otpCode}
+              onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, ""))}
+              className="w-full pl-11 pr-4 py-3 text-sm bg-black/40 border border-white/10 text-white placeholder:text-white/40 rounded-xl focus:bg-black/60 focus:border-white/30 transition-all text-center tracking-widest font-mono"
+              disabled={isSubmitting}
+              required
+              autoFocus
+            />
+          </div>
+
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full py-3 flex justify-center items-center gap-2 bg-[#2b90d9] hover:bg-[#207bbd] text-white rounded-xl shadow-lg shadow-blue-500/20 border-none text-sm font-bold tracking-wide transition-all"
+          >
+            {isSubmitting ? (
+              <i className="pi pi-spin pi-spinner" />
+            ) : null}
+            <span>{isSubmitting ? "MEMVERIFIKASI..." : "LOGIN"}</span>
+          </Button>
+
+          <div className="flex items-center justify-between text-[11px] pt-4 border-t border-white/10">
             <button
               type="button"
               onClick={() => {
@@ -194,19 +206,19 @@ export function LoginForm() {
                 setErrorMessage(null);
                 setSuccessInfo(null);
               }}
-              className="text-slate-500 hover:text-slate-800 transition-colors cursor-pointer"
-              disabled={isPending}
+              className="text-white/60 hover:text-white transition-colors cursor-pointer flex items-center"
+              disabled={isSubmitting}
             >
-              <i className="pi pi-arrow-left mr-1" /> Ganti Email
+              <i className="pi pi-arrow-left mr-1 text-[10px]" /> Ganti Email
             </button>
 
             <button
               type="button"
               onClick={handleRequestOtp}
-              className="text-blue-600 hover:text-blue-800 font-medium transition-colors cursor-pointer"
-              disabled={isPending}
+              className="text-[#3ba2eb] hover:text-[#52b1f3] font-semibold transition-colors cursor-pointer"
+              disabled={isSubmitting}
             >
-              Kirim Ulang Kode
+              Kirim Ulang
             </button>
           </div>
         </form>

@@ -1,7 +1,19 @@
 "use client";
 
 import React from "react";
-import { Check, Compass, Target, HeartHandshake, FileText, UserCheck, Send, Award } from "lucide-react";
+import { 
+  Check, 
+  Compass, 
+  Target, 
+  FileText, 
+  UserCheck, 
+  Send,
+  Building,
+  Quote,
+  Wrench,
+  Calculator,
+  Store
+} from "lucide-react";
 
 export function About() {
   const steps = [
@@ -34,75 +46,201 @@ export function About() {
   return (
     <section id="tentang" className="py-20 bg-white border-y border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* About School Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24">
+        
+        {/* Profil & Sejarah */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-24">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold mb-4">
-              <Compass className="w-3.5 h-3.5" />
-              <span>Profil & Nilai Utama</span>
+              <Building className="w-3.5 h-3.5" />
+              <span>Profil Sekolah</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight leading-tight mb-6">
-              Membentuk Generasi Berilmu, Berdaya Saing Global, dan Berakhlak Mulia
+              SMK PGRI 2 Mejayan
             </h2>
-            <p className="text-slate-600 leading-relaxed mb-6">
-              Lembaga pendidikan kami berkomitmen menyediakan lingkungan belajar
-              yang inklusif, modern, dan berorientasi pada kemajuan teknologi serta
-              pembentukan integritas moral peserta didik.
-            </p>
+            
+            <div className="prose prose-slate text-slate-600 mb-8 leading-relaxed text-sm sm:text-base">
+              <p className="mb-4">
+                <strong className="text-slate-800">Sejarah Singkat:</strong> SMK PGRI 2 Mejayan didirikan pada 11 Juli 2002 berdasarkan SK Pendirian Nomor 421.5/241/180.09/2002. Sejak berdiri, SMK PGRI 2 Mejayan berkomitmen menyelenggarakan pendidikan kejuruan yang berkualitas dengan membekali peserta didik melalui pengetahuan, keterampilan, dan karakter yang sesuai dengan kebutuhan dunia kerja.
+              </p>
+              <p>
+                Hingga saat ini, kami terus berkembang dan berupaya mencetak lulusan yang kompeten, berkarakter, serta siap melanjutkan pendidikan maupun memasuki dunia kerja.
+              </p>
+            </div>
 
-            <div className="space-y-3">
-              <div className="flex items-start gap-3">
-                <div className="mt-1 w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
-                  <Check className="w-3.5 h-3.5" />
+            {/* Identitas Sekolah Box */}
+            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+              <h3 className="font-bold text-slate-800 mb-4 border-b border-slate-200 pb-2">Identitas Sekolah</h3>
+              <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-4 text-sm">
+                <div>
+                  <dt className="text-slate-500 mb-1">NPSN</dt>
+                  <dd className="font-medium text-slate-900">20507696</dd>
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-slate-800">Kurikulum Merdeka Terintegrasi</h3>
-                  <p className="text-xs text-slate-500">Mendorong eksplorasi minat, bakat, dan proyek riset inovatif siswa.</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <div className="mt-1 w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
-                  <Check className="w-3.5 h-3.5" />
+                  <dt className="text-slate-500 mb-1">Status / Akreditasi</dt>
+                  <dd className="font-medium text-slate-900">Swasta / B</dd>
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-slate-800">Tenaga Pendidik Profesional & Tersertifikasi</h3>
-                  <p className="text-xs text-slate-500">Guru berdedikasi tinggi dengan latar belakang akademik unggul.</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <div className="mt-1 w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
-                  <Check className="w-3.5 h-3.5" />
+                  <dt className="text-slate-500 mb-1">Tahun Berdiri</dt>
+                  <dd className="font-medium text-slate-900">11 Juli 2002</dd>
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-slate-800">Jaringan Kemitraan Kampus & Industri</h3>
-                  <p className="text-xs text-slate-500">Peluang beasiswa lanjutan dan magang industri terkemuka.</p>
+                  <dt className="text-slate-500 mb-1">Nomor Telepon</dt>
+                  <dd className="font-medium text-slate-900">+62 856-0792-7791</dd>
                 </div>
-              </div>
+                <div className="sm:col-span-2">
+                  <dt className="text-slate-500 mb-1">Alamat Lengkap</dt>
+                  <dd className="font-medium text-slate-900">Jalan Panglima Sudirman No.69 Mejayan, Kab. Madiun</dd>
+                </div>
+              </dl>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
-              <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-4">
-                <Target className="w-5 h-5" />
+          <div className="space-y-6">
+            {/* Sambutan Kepala Sekolah */}
+            <div className="bg-blue-50 p-6 md:p-8 rounded-3xl border border-blue-100 relative overflow-hidden">
+              <Quote className="absolute right-4 bottom-4 w-24 h-24 text-blue-100/50" />
+              <div className="flex flex-col sm:flex-row gap-6 relative z-10">
+                <div className="w-24 h-24 sm:w-28 sm:h-28 shrink-0 rounded-2xl bg-white p-1.5 shadow-sm border border-slate-200">
+                  <div className="w-full h-full bg-slate-100 rounded-xl overflow-hidden relative flex items-center justify-center">
+                    {/* Placeholder Foto Kepala Sekolah */}
+                    <UserCheck className="w-10 h-10 text-slate-400" />
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-1">Dra. Sutini</h3>
+                  <p className="text-blue-700 text-sm font-semibold mb-3">Kepala Sekolah</p>
+                  <p className="text-slate-700 text-sm italic leading-relaxed">
+                    "Selamat datang di SMK PGRI 2 Mejayan. Mari bersama mencetak generasi penerus bangsa yang cerdas, terampil, dan berakhlak mulia, siap bersaing di dunia kerja maupun jenjang pendidikan lanjutan."
+                  </p>
+                </div>
               </div>
-              <h3 className="text-lg font-bold text-slate-800 mb-2">Visi Sekolah</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Menjadi sentra pendidikan terkemuka dalam menghasilkan lulusan yang cerdas intelektual, emosional, dan berjiwa kepemimpinan.
-              </p>
             </div>
 
-            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
-              <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center mb-4">
-                <HeartHandshake className="w-5 h-5" />
+            {/* Visi Misi */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col">
+                <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-4 shrink-0">
+                  <Target className="w-5 h-5" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-800 mb-2">Visi</h3>
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  Meningkatkan kecerdasan kepribadian, akhlak mulia, serta keterampilan untuk hidup mandiri dan mengikuti pendidikan lebih lanjut sesuai dengan kejuruan.
+                </p>
               </div>
-              <h3 className="text-lg font-bold text-slate-800 mb-2">Misi Utama</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Menyelenggarakan pembelajaran berbasis teknologi mutakhir dan pembinaan kepribadian yang berbudi pekerti luhur.
-              </p>
+
+              <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col">
+                <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center mb-4 shrink-0">
+                  <Compass className="w-5 h-5" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-800 mb-2">Misi Utama</h3>
+                <ul className="text-sm text-slate-600 space-y-1.5 list-disc list-outside ml-4">
+                  <li>Menyiapkan siswa berfikir positif, kreatif, inovatif.</li>
+                  <li>Meningkatkan kepribadian, disiplin & mandiri.</li>
+                  <li>Menciptakan lulusan siap kerja di era globalisasi.</li>
+                </ul>
+              </div>
             </div>
+          </div>
+        </div>
+
+        {/* Program Keahlian */}
+        <div className="mb-24 pt-12 border-t border-slate-100">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Program Keahlian</h2>
+            <p className="text-slate-500 mt-2">Pilihan jurusan kompeten yang disesuaikan dengan kebutuhan industri modern.</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* TKR */}
+            <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-lg transition-all group">
+              <div className="h-32 bg-slate-50 border-b border-slate-100 flex items-center justify-center group-hover:bg-slate-100 transition-colors">
+                <Wrench className="w-12 h-12 text-slate-300 group-hover:text-blue-400 transition-colors" />
+              </div>
+              <div className="p-6">
+                <div className="inline-flex items-center px-2.5 py-1 rounded-md bg-blue-50 text-blue-700 text-xs font-semibold mb-3">
+                  Teknik Otomotif
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">Teknik Kendaraan Ringan (TKR)</h3>
+                <p className="text-sm text-slate-600 mb-4 line-clamp-3">
+                  Membekali siswa dengan kompetensi perbaikan dan perawatan kendaraan bermotor roda empat sesuai standar industri.
+                </p>
+                <div className="space-y-2">
+                  <div className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                    <span className="text-xs text-slate-600">Perawatan Mesin & Chasis</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                    <span className="text-xs text-slate-600">Sistem Kelistrikan Kendaraan</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                    <span className="text-xs text-slate-600">Mekanik, Perakitan & Wirausaha</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Akuntansi */}
+            <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-lg transition-all group">
+              <div className="h-32 bg-slate-50 border-b border-slate-100 flex items-center justify-center group-hover:bg-slate-100 transition-colors">
+                <Calculator className="w-12 h-12 text-slate-300 group-hover:text-emerald-400 transition-colors" />
+              </div>
+              <div className="p-6">
+                <div className="inline-flex items-center px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 text-xs font-semibold mb-3">
+                  Bisnis & Manajemen
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">Akuntansi</h3>
+                <p className="text-sm text-slate-600 mb-4 line-clamp-3">
+                  Menyiapkan tenaga terampil di bidang administrasi keuangan, perpajakan, dan pelaporan akuntansi perusahaan.
+                </p>
+                <div className="space-y-2">
+                  <div className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                    <span className="text-xs text-slate-600">Komputer Akuntansi (MYOB)</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                    <span className="text-xs text-slate-600">Administrasi Perpajakan</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                    <span className="text-xs text-slate-600">Staff Keuangan & Teller</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Administrasi/Penjualan */}
+            <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-lg transition-all group">
+              <div className="h-32 bg-slate-50 border-b border-slate-100 flex items-center justify-center group-hover:bg-slate-100 transition-colors">
+                <Store className="w-12 h-12 text-slate-300 group-hover:text-indigo-400 transition-colors" />
+              </div>
+              <div className="p-6">
+                <div className="inline-flex items-center px-2.5 py-1 rounded-md bg-indigo-50 text-indigo-700 text-xs font-semibold mb-3">
+                  Bisnis & Pemasaran
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">Pemasaran / Penjualan</h3>
+                <p className="text-sm text-slate-600 mb-4 line-clamp-3">
+                  Mendidik siswa menjadi profesional di bidang marketing, ritel, dan wirausaha bisnis daring maupun luring.
+                </p>
+                <div className="space-y-2">
+                  <div className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                    <span className="text-xs text-slate-600">Marketing & Bisnis Daring</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                    <span className="text-xs text-slate-600">Pengelolaan Ritel & Kasir</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                    <span className="text-xs text-slate-600">Sales Executive & Pramuniaga</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 

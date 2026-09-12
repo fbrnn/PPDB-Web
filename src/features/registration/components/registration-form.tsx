@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useTransition, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Steps } from "primereact/steps";
 import { Button } from "primereact/button";
@@ -28,7 +28,7 @@ interface RegistrationFormProps {
 export function RegistrationForm({ initialData }: RegistrationFormProps) {
   const router = useRouter();
   const toastRef = useRef<Toast>(null);
-  const [isPending, startTransition] = useTransition();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Form State
   const [formData, setFormData] = useState<RegistrationFormData>(() => {
@@ -90,7 +90,9 @@ export function RegistrationForm({ initialData }: RegistrationFormProps) {
         const backupData = JSON.parse(backupStr);
         // Only consider if backup has content
         if (backupData.fullName && !initialData.fullName) {
+          // eslint-disable-next-line react-hooks/set-state-in-effect
           setFormData((prev) => ({ ...prev, ...backupData }));
+          // eslint-disable-next-line react-hooks/set-state-in-effect
           setAutosaveStatus("local");
         }
       }
@@ -101,7 +103,6 @@ export function RegistrationForm({ initialData }: RegistrationFormProps) {
 
   // Debounced Autosave to Server & LocalStorage
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const isFirstMount = useRef(true);
 
   const performAutosave = useCallback(
     async (dataToSave: RegistrationFormData) => {
@@ -152,11 +153,13 @@ export function RegistrationForm({ initialData }: RegistrationFormProps) {
   };
 
   // Manual Save Draft
-  const handleManualSaveDraft = () => {
+  const handleManualSaveDraft = async () => {
     if (debounceTimerRef.current) {
       clearTimeout(debounceTimerRef.current);
     }
-    startTransition(async () => {
+    
+    setIsSubmitting(true);
+    try {
       setAutosaveStatus("saving");
       const res = await saveRegistrationDraft(formData);
       if (res.success) {
@@ -176,11 +179,13 @@ export function RegistrationForm({ initialData }: RegistrationFormProps) {
           life: 3000,
         });
       }
-    });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Final Submit
-  const handleFinalSubmit = () => {
+  const handleFinalSubmit = async () => {
     if (!agreement) {
       toastRef.current?.show({
         severity: "warn",
@@ -192,7 +197,8 @@ export function RegistrationForm({ initialData }: RegistrationFormProps) {
       return;
     }
 
-    startTransition(async () => {
+    setIsSubmitting(true);
+    try {
       // @ts-expect-error partial typing matches submit schema
       const res = await submitRegistration(formData);
       if (res.success) {
@@ -210,8 +216,9 @@ export function RegistrationForm({ initialData }: RegistrationFormProps) {
           life: 3000,
         });
 
+        // Hanya gunakan router.push, hindari router.refresh secara bersamaan
+        // karena bisa menyebabkan race condition dan UI stuck.
         router.push("/dashboard");
-        router.refresh();
       } else {
         toastRef.current?.show({
           severity: "error",
@@ -219,8 +226,17 @@ export function RegistrationForm({ initialData }: RegistrationFormProps) {
           detail: res.message,
           life: 5000,
         });
+        setIsSubmitting(false);
       }
-    });
+    } catch (error) {
+      toastRef.current?.show({
+        severity: "error",
+        summary: "Kesalahan Sistem",
+        detail: "Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.",
+        life: 5000,
+      });
+      setIsSubmitting(false);
+    }
   };
 
   const stepsItems = [
@@ -290,7 +306,7 @@ export function RegistrationForm({ initialData }: RegistrationFormProps) {
               outlined
               size="small"
               onClick={handleManualSaveDraft}
-              loading={isPending}
+              loading={isSubmitting}
               className="text-xs"
             />
           )}
@@ -391,7 +407,7 @@ export function RegistrationForm({ initialData }: RegistrationFormProps) {
               outlined
               size="small"
               onClick={() => setActiveStep((prev) => (prev - 1) as FormStep)}
-              disabled={isPending}
+              disabled={isSubmitting}
             />
           )}
         </div>
@@ -411,10 +427,10 @@ export function RegistrationForm({ initialData }: RegistrationFormProps) {
             !isLocked && (
               <Button
                 type="button"
-                label={isPending ? "Mengirimkan Pendaftaran..." : "Kirim Pendaftaran"}
-                icon={isPending ? "pi pi-spin pi-spinner" : "pi pi-send"}
+                label={isSubmitting ? "Mengirimkan Pendaftaran..." : "Kirim Pendaftaran"}
+                icon={isSubmitting ? "pi pi-spin pi-spinner" : "pi pi-send"}
                 size="small"
-                loading={isPending}
+                loading={isSubmitting}
                 onClick={handleFinalSubmit}
                 className="bg-emerald-600 hover:bg-emerald-700 text-white border-none px-6 shadow-md"
               />
