@@ -25,7 +25,7 @@ export default async function LoginPage() {
       <div
         className="absolute inset-0"
         style={{
-          backgroundImage: "url('/image.png')",
+          backgroundImage: "url('/SMK PGRI 2 Mejayan.PNG')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

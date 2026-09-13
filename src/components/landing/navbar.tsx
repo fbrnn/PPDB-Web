@@ -22,10 +22,10 @@ export function Navbar({ userRole }: NavbarProps) {
             </div>
             <div>
               <span className="text-xl font-bold tracking-tight text-slate-900 block leading-none">
-                SPMB <span className="text-blue-600">Online</span>
+                SPMB <span className="text-blue-600">SMK PGRI 2 MEJAYAN</span>
               </span>
               <span className="text-xs font-medium text-slate-400">
-                T.A. 2026/2027
+                T.A. 2027/2028
               </span>
             </div>
           </Link>

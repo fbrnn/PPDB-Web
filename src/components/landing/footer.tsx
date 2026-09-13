@@ -16,7 +16,7 @@ export function Footer() {
                 <GraduationCap className="w-6 h-6" />
               </div>
               <span className="text-xl font-bold text-white tracking-tight">
-                SPMB <span className="text-blue-400">Online</span>
+                SPMB <span className="text-blue-400">SMK PGRI 2 MEJAYAN</span>
               </span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed mb-6">
@@ -99,7 +99,7 @@ export function Footer() {
         </div>
 
         <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-          <p>&copy; {new Date().getFullYear()} SPMB Online. Hak Cipta Dilindungi Undang-Undang.</p>
+          <p>&copy; {new Date().getFullYear()} SPMB SMK PGRI 2 MEJAYAN. Hak Cipta Dilindungi Undang-Undang.</p>
           <div className="flex items-center gap-6">
             <Link href="/login" className="hover:text-slate-300">
               Masuk Akun
