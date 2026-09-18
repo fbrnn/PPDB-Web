@@ -6,7 +6,7 @@ import {
   REGISTRATION_STATUS_SEVERITY,
 } from "@/lib/constants";
 import { Tag } from "primereact/tag";
-import { Users, Clock, AlertCircle, CheckCircle2, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Dashboard Admin",
@@ -43,59 +43,39 @@ export default async function AdminDashboardPage() {
       {/* Stats Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {/* Total Pendaftar */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
-          <div>
-            <div className="text-xs font-medium text-slate-500">Total Akun Terdaftar</div>
-            <div className="text-3xl font-extrabold text-slate-900 mt-2">
-              {stats.total}
-            </div>
-            <div className="text-[11px] text-slate-400 mt-1">Semua pendaftar</div>
+        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div className="text-xs font-medium text-slate-500">Total Akun Terdaftar</div>
+          <div className="text-3xl font-extrabold text-slate-900 mt-2">
+            {stats.total}
           </div>
-          <div className="w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center">
-            <Users className="w-6 h-6" />
-          </div>
+          <div className="text-[11px] text-slate-400 mt-1">Semua pendaftar</div>
         </div>
 
         {/* Menunggu Verifikasi */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
-          <div>
-            <div className="text-xs font-medium text-amber-700">Menunggu Verifikasi</div>
-            <div className="text-3xl font-extrabold text-amber-600 mt-2">
-              {stats.submitted}
-            </div>
-            <div className="text-[11px] text-slate-400 mt-1">Perlu segera dicek</div>
+        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div className="text-xs font-medium text-amber-700">Menunggu Verifikasi</div>
+          <div className="text-3xl font-extrabold text-amber-600 mt-2">
+            {stats.submitted}
           </div>
-          <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
-            <Clock className="w-6 h-6" />
-          </div>
+          <div className="text-[11px] text-slate-400 mt-1">Perlu segera dicek</div>
         </div>
 
         {/* Perlu Perbaikan */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
-          <div>
-            <div className="text-xs font-medium text-red-700">Perlu Perbaikan</div>
-            <div className="text-3xl font-extrabold text-red-600 mt-2">
-              {stats.revisionRequired}
-            </div>
-            <div className="text-[11px] text-slate-400 mt-1">Menunggu revisi siswa</div>
+        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div className="text-xs font-medium text-red-700">Perlu Perbaikan</div>
+          <div className="text-3xl font-extrabold text-red-600 mt-2">
+            {stats.revisionRequired}
           </div>
-          <div className="w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center">
-            <AlertCircle className="w-6 h-6" />
-          </div>
+          <div className="text-[11px] text-slate-400 mt-1">Menunggu revisi siswa</div>
         </div>
 
         {/* Terverifikasi */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
-          <div>
-            <div className="text-xs font-medium text-emerald-700">Terverifikasi Sah</div>
-            <div className="text-3xl font-extrabold text-emerald-600 mt-2">
-              {stats.verified}
-            </div>
-            <div className="text-[11px] text-slate-400 mt-1">Dokumen lengkap & valid</div>
+        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div className="text-xs font-medium text-emerald-700">Terverifikasi Sah</div>
+          <div className="text-3xl font-extrabold text-emerald-600 mt-2">
+            {stats.verified}
           </div>
-          <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
-            <CheckCircle2 className="w-6 h-6" />
-          </div>
+          <div className="text-[11px] text-slate-400 mt-1">Dokumen lengkap & valid</div>
         </div>
       </div>
 
