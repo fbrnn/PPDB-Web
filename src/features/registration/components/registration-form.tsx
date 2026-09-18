@@ -286,8 +286,8 @@ export function RegistrationForm({ initialData }: RegistrationFormProps) {
           <div className="text-[11px] sm:text-xs flex items-center gap-1.5 text-slate-500 font-medium">
             {autosaveStatus === "saving" && (
               <>
-                <i className="pi pi-spin pi-spinner text-blue-600 text-xs" />
-                <span className="text-blue-600 font-semibold">Menyimpan...</span>
+                <i className="pi pi-spin pi-spinner text-red-600 text-xs" />
+                <span className="text-red-600 font-semibold">Menyimpan...</span>
               </>
             )}
             {autosaveStatus === "saved" && (
@@ -425,7 +425,7 @@ export function RegistrationForm({ initialData }: RegistrationFormProps) {
               iconPos="right"
               size="small"
               onClick={() => setActiveStep((prev) => (prev + 1) as FormStep)}
-              className="bg-blue-600 hover:bg-blue-700 text-white border-none text-xs sm:text-sm px-4 py-2"
+              className="bg-red-600 hover:bg-red-700 text-white border-none text-xs sm:text-sm px-4 py-2"
             />
           ) : (
             !isLocked && (

@@ -26,12 +26,12 @@ export default async function StudentLayout({
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-6">
               <Link href="/dashboard" className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center text-white">
+                <div className="w-9 h-9 rounded-lg bg-red-600 flex items-center justify-center text-white">
                   <GraduationCap className="w-5 h-5" />
                 </div>
                 <div>
                   <span className="text-base font-bold text-slate-800 leading-none block">
-                    SPMB <span className="text-blue-600">Portal</span>
+                    SPMB <span className="text-red-600">Portal</span>
                   </span>
                   <span className="text-[10px] text-slate-400 font-medium">
                     Area Siswa
@@ -42,14 +42,14 @@ export default async function StudentLayout({
               <nav className="hidden sm:flex items-center gap-4 text-sm font-medium">
                 <Link
                   href="/dashboard"
-                  className="flex items-center gap-1.5 text-slate-600 hover:text-blue-600 px-3 py-1.5 rounded-lg hover:bg-slate-100 transition-colors"
+                  className="flex items-center gap-1.5 text-slate-600 hover:text-red-600 px-3 py-1.5 rounded-lg hover:bg-slate-100 transition-colors"
                 >
                   <LayoutDashboard className="w-4 h-4" />
                   <span>Dashboard</span>
                 </Link>
                 <Link
                   href="/pendaftaran"
-                  className="flex items-center gap-1.5 text-slate-600 hover:text-blue-600 px-3 py-1.5 rounded-lg hover:bg-slate-100 transition-colors"
+                  className="flex items-center gap-1.5 text-slate-600 hover:text-red-600 px-3 py-1.5 rounded-lg hover:bg-slate-100 transition-colors"
                 >
                   <FileText className="w-4 h-4" />
                   <span>Formulir Pendaftaran</span>

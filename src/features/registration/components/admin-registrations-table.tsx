@@ -282,7 +282,7 @@ export function AdminRegistrationsTable({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Data Pribadi */}
               <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
-                <div className="font-bold text-blue-800 uppercase tracking-wider text-[11px] mb-2">
+                <div className="font-bold text-red-800 uppercase tracking-wider text-[11px] mb-2">
                   1. Data Pribadi Siswa
                 </div>
                 <div className="flex justify-between">
@@ -330,7 +330,7 @@ export function AdminRegistrationsTable({
 
               {/* Data Alamat */}
               <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
-                <div className="font-bold text-blue-800 uppercase tracking-wider text-[11px] mb-2">
+                <div className="font-bold text-red-800 uppercase tracking-wider text-[11px] mb-2">
                   2. Alamat Domisili
                 </div>
                 <div>
@@ -367,7 +367,7 @@ export function AdminRegistrationsTable({
 
               {/* Sekolah Asal */}
               <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
-                <div className="font-bold text-blue-800 uppercase tracking-wider text-[11px] mb-2">
+                <div className="font-bold text-red-800 uppercase tracking-wider text-[11px] mb-2">
                   3. Sekolah Asal
                 </div>
                 <div className="flex justify-between">
@@ -398,7 +398,7 @@ export function AdminRegistrationsTable({
 
               {/* Data Orang Tua */}
               <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
-                <div className="font-bold text-blue-800 uppercase tracking-wider text-[11px] mb-2">
+                <div className="font-bold text-red-800 uppercase tracking-wider text-[11px] mb-2">
                   4. Orang Tua & Wali
                 </div>
                 <div className="flex justify-between">

@@ -33,7 +33,7 @@ export default async function AdminDashboardPage() {
 
         <Link
           href="/admin/pendaftar"
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-sm transition-all"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-semibold shadow-sm transition-all"
         >
           <span>Kelola Semua Pendaftar</span>
           <ArrowRight className="w-3.5 h-3.5" />
@@ -51,7 +51,7 @@ export default async function AdminDashboardPage() {
             </div>
             <div className="text-[11px] text-slate-400 mt-1">Semua pendaftar</div>
           </div>
-          <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center">
             <Users className="w-6 h-6" />
           </div>
         </div>
@@ -107,7 +107,7 @@ export default async function AdminDashboardPage() {
           </h2>
           <Link
             href="/admin/pendaftar"
-            className="text-xs font-semibold text-blue-600 hover:text-blue-800"
+            className="text-xs font-semibold text-red-600 hover:text-red-800"
           >
             Lihat Tabel Lengkap &rarr;
           </Link>

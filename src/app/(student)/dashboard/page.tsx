@@ -28,7 +28,7 @@ export default async function StudentDashboardPage() {
       title: "Pendaftaran Belum Dikirim (Draf)",
       desc: "Data formulir pendaftaran Anda telah tersimpan sebagai draf. Silakan lengkapi seluruh isian dan kirim pendaftaran sebelum batas akhir.",
       icon: Clock,
-      color: "bg-blue-50 border-blue-200 text-blue-800",
+      color: "bg-red-50 border-red-200 text-red-800",
       btnText: "Lanjutkan Isi Formulir",
     },
     SUBMITTED: {
@@ -62,7 +62,7 @@ export default async function StudentDashboardPage() {
       {/* Welcome Banner */}
       <div className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/90 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div>
-          <span className="text-xs font-semibold px-3 py-1 rounded-full bg-blue-50 text-blue-700">
+          <span className="text-xs font-semibold px-3 py-1 rounded-full bg-red-50 text-red-700">
             Tahun Ajaran 2026/2027
           </span>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mt-2">
@@ -75,7 +75,7 @@ export default async function StudentDashboardPage() {
 
         <Link
           href="/pendaftaran"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold shadow-md shadow-blue-600/20 transition-all hover:scale-105"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white text-sm font-semibold shadow-md shadow-red-600/20 transition-all hover:scale-105"
         >
           <span>{currentConfig.btnText}</span>
           <ArrowRight className="w-4 h-4" />
@@ -148,7 +148,7 @@ export default async function StudentDashboardPage() {
         {/* Informasi Bantuan */}
         <div className="bg-white p-6 rounded-2xl border border-slate-200/90 space-y-4">
           <div className="flex items-center gap-2 text-slate-800 font-bold text-sm">
-            <Info className="w-4 h-4 text-blue-600" />
+            <Info className="w-4 h-4 text-red-600" />
             <span>Butuh Bantuan?</span>
           </div>
           <p className="text-xs text-slate-500 leading-relaxed">
@@ -172,14 +172,14 @@ export default async function StudentDashboardPage() {
       <div className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/90 space-y-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <FileText className="w-5 h-5 text-blue-600" />
+            <FileText className="w-5 h-5 text-red-600" />
             <h3 className="text-base font-bold text-slate-800">
               Ringkasan Data Pendaftaran
             </h3>
           </div>
           <Link
             href="/pendaftaran"
-            className="text-xs font-semibold text-blue-600 hover:text-blue-800"
+            className="text-xs font-semibold text-red-600 hover:text-red-800"
           >
             Buka Formulir Lengkap &rarr;
           </Link>

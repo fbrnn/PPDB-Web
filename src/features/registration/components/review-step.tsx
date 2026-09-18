@@ -31,7 +31,7 @@ export function ReviewStep({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Ringkasan Data Siswa */}
         <div className="bg-slate-50 p-5 rounded-xl border border-slate-200">
-          <h4 className="text-xs font-bold text-blue-800 uppercase tracking-wider mb-3">
+          <h4 className="text-xs font-bold text-red-800 uppercase tracking-wider mb-3">
             1. Data Pribadi
           </h4>
           <dl className="space-y-2 text-xs">
@@ -68,7 +68,7 @@ export function ReviewStep({
 
         {/* Ringkasan Alamat */}
         <div className="bg-slate-50 p-5 rounded-xl border border-slate-200">
-          <h4 className="text-xs font-bold text-blue-800 uppercase tracking-wider mb-3">
+          <h4 className="text-xs font-bold text-red-800 uppercase tracking-wider mb-3">
             2. Alamat Domisili
           </h4>
           <dl className="space-y-2 text-xs">
@@ -97,7 +97,7 @@ export function ReviewStep({
 
         {/* Ringkasan Sekolah Asal */}
         <div className="bg-slate-50 p-5 rounded-xl border border-slate-200">
-          <h4 className="text-xs font-bold text-blue-800 uppercase tracking-wider mb-3">
+          <h4 className="text-xs font-bold text-red-800 uppercase tracking-wider mb-3">
             3. Asal Sekolah
           </h4>
           <dl className="space-y-2 text-xs">
@@ -118,7 +118,7 @@ export function ReviewStep({
 
         {/* Ringkasan Orang Tua */}
         <div className="bg-slate-50 p-5 rounded-xl border border-slate-200">
-          <h4 className="text-xs font-bold text-blue-800 uppercase tracking-wider mb-3">
+          <h4 className="text-xs font-bold text-red-800 uppercase tracking-wider mb-3">
             4. Data Orang Tua
           </h4>
           <dl className="space-y-2 text-xs">
@@ -139,7 +139,7 @@ export function ReviewStep({
       </div>
 
       {/* Pernyataan Kebenaran Data */}
-      <div className="mt-8 pt-6 border-t border-slate-200 bg-blue-50/50 p-5 rounded-xl">
+      <div className="mt-8 pt-6 border-t border-slate-200 bg-red-50/50 p-5 rounded-xl">
         <div className="flex items-start gap-3">
           <Checkbox
             inputId="agreement"

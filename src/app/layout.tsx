@@ -27,7 +27,7 @@ export default function RootLayout({
       lang="id"
       className={`${jost.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white">
+      <body className="min-h-full flex flex-col font-sans bg-slate-50 text-slate-900 selection:bg-red-600 selection:text-white">
         <PrimeProvider>{children}</PrimeProvider>
       </body>
     </html>

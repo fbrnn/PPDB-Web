@@ -125,9 +125,9 @@ export function LoginForm() {
       )}
 
       {successInfo && step === "OTP" && (
-        <div className="mb-5 p-3 rounded-xl bg-blue-500/20 border border-blue-500/30 flex items-start gap-2.5 shadow-inner">
-          <i className="pi pi-info-circle text-blue-400 text-base mt-[2px] shrink-0" />
-          <p className="text-xs text-blue-100 font-normal leading-relaxed">{successInfo}</p>
+        <div className="mb-5 p-3 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-start gap-2.5 shadow-inner">
+          <i className="pi pi-info-circle text-emerald-400 text-base mt-[2px] shrink-0" />
+          <p className="text-xs text-emerald-100 font-normal leading-relaxed">{successInfo}</p>
         </div>
       )}
 

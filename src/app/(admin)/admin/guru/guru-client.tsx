@@ -123,7 +123,7 @@ export function GuruClient({ initialTeachers }: GuruClientProps) {
           <h1 className="text-2xl font-bold text-slate-800">Katalog Guru</h1>
           <p className="text-sm text-slate-500">Kelola daftar tenaga pendidik yang tampil di halaman utama.</p>
         </div>
-        <Button label="Tambah Guru" icon="pi pi-plus" onClick={openNew} className="bg-blue-600 hover:bg-blue-700 border-none" />
+        <Button label="Tambah Guru" icon="pi pi-plus" onClick={openNew} className="bg-red-600 hover:bg-red-700 border-none" />
       </div>
 
       <DataTable value={teachers} paginator rows={10} dataKey="id" emptyMessage="Belum ada data guru." className="text-sm">

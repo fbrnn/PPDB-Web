@@ -36,11 +36,11 @@ export default async function AdminLayout({
                 href="/admin/dashboard"
                 className="flex items-center gap-2.5 font-bold text-base"
               >
-                <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white">
+                <div className="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center text-white">
                   <ShieldAlert className="w-4 h-4" />
                 </div>
                 <span>
-                  Admin <span className="text-blue-400">SPMB</span>
+                  Admin <span className="text-red-400">SPMB</span>
                 </span>
               </Link>
 
@@ -82,7 +82,7 @@ export default async function AdminLayout({
                 <div className="text-xs font-semibold text-white">
                   {admin.email}
                 </div>
-                <div className="text-[10px] text-blue-400 font-bold uppercase tracking-wider">
+                <div className="text-[10px] text-red-400 font-bold uppercase tracking-wider">
                   {admin.role}
                 </div>
               </div>

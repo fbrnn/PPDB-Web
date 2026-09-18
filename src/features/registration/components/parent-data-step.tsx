@@ -24,7 +24,7 @@ export function ParentDataStep({ data, onChange, disabled }: StepProps) {
 
       {/* Bagian Data Ayah */}
       <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200/80 space-y-4">
-        <h4 className="text-sm font-bold text-blue-800 uppercase tracking-wider">
+        <h4 className="text-sm font-bold text-red-800 uppercase tracking-wider">
           A. Data Ayah Kandung
         </h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -91,7 +91,7 @@ export function ParentDataStep({ data, onChange, disabled }: StepProps) {
 
       {/* Bagian Data Ibu */}
       <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200/80 space-y-4">
-        <h4 className="text-sm font-bold text-blue-800 uppercase tracking-wider">
+        <h4 className="text-sm font-bold text-red-800 uppercase tracking-wider">
           B. Data Ibu Kandung
         </h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
