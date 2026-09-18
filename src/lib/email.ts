@@ -3,7 +3,11 @@ import nodemailer from "nodemailer";
 /**
  * Email Dispatcher for OTP Authentication
  */
-export async function sendOtpEmail(email: string, code: string): Promise<boolean> {
+export async function sendOtpEmail(
+  email: string,
+  code: string,
+  options?: { isAdmin?: boolean }
+): Promise<boolean> {
   const user = process.env.SMTP_USER;
   const pass = process.env.SMTP_PASS;
 
@@ -50,9 +54,30 @@ export async function sendOtpEmail(email: string, code: string): Promise<boolean
     };
 
     await transporter.sendMail(mailOptions);
+
+    // Fallback console log untuk admin — agar kode OTP selalu bisa diakses di terminal
+    if (options?.isAdmin) {
+      console.log("==================================================");
+      console.log(`🔑 [ADMIN OTP] Kode OTP untuk ${email}: ${code}`);
+      console.log(`⏰ Berlaku selama 10 menit.`);
+      console.log("==================================================");
+    }
+
     return true;
   } catch (error) {
     console.error("❌ Error mengirim email OTP via Nodemailer:", error);
+
+    // Jika admin dan email gagal kirim, tetap log ke console agar admin tetap bisa login
+    if (options?.isAdmin) {
+      console.log("==================================================");
+      console.log(`🔑 [ADMIN OTP FALLBACK] Email gagal terkirim, gunakan kode ini:`);
+      console.log(`🔑 Kode OTP untuk ${email}: ${code}`);
+      console.log(`⏰ Berlaku selama 10 menit.`);
+      console.log("==================================================");
+      return true;
+    }
+
     return false;
   }
 }
+

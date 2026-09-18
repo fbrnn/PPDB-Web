@@ -38,7 +38,7 @@ export function Hero() {
           >
             Selamat Datang di
             <br />
-            <span className="text-blue-400">SMK PGRI 2 Mejayan</span>
+            <span className="text-[#e8363f]">SMK PGRI 2 Mejayan</span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -59,7 +59,7 @@ export function Hero() {
           >
             <Link
               href="/login"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-blue-600 text-white font-semibold text-sm hover:bg-blue-500 shadow-lg shadow-blue-600/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#be0817] text-white font-semibold text-sm hover:bg-[#a00714] shadow-lg shadow-[#be0817]/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
             >
               <span>Daftar Sekarang</span>
               <ArrowRight className="w-4 h-4" />
@@ -68,7 +68,7 @@ export function Hero() {
               href="#alur"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/25 text-white font-semibold text-sm hover:bg-white/20 transition-all"
             >
-              <CheckCircle2 className="w-4 h-4 text-blue-400" />
+              <CheckCircle2 className="w-4 h-4 text-[#e8363f]" />
               <span>Lihat Alur Seleksi</span>
             </Link>
           </motion.div>

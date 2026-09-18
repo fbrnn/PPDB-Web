@@ -6,27 +6,21 @@ import { Calendar, Bell, FileCheck, Info, Clock } from "lucide-react";
 export function News() {
   const schedule = [
     {
-      stage: "Gelombang I (Jalur Prestasi & Afirmasi)",
-      dates: "1 Maret - 25 April 2026",
-      status: "Sedang Berlangsung",
-      color: "bg-emerald-500",
-    },
-    {
-      stage: "Verifikasi Berkas & Wawancara Gel. I",
-      dates: "28 April - 5 Mei 2026",
-      status: "Mendatang",
-      color: "bg-blue-500",
-    },
-    {
-      stage: "Pengumuman Kelulusan Gel. I",
-      dates: "10 Mei 2026",
-      status: "Mendatang",
+      stage: "Gelombang I",
+      dates: "1 Desember 2025 – 31 Januari 2026",
+      status: "Selesai",
       color: "bg-slate-400",
     },
     {
-      stage: "Gelombang II (Jalur Reguler / Tes)",
-      dates: "15 Mei - 30 Juni 2026",
-      status: "Mendatang",
+      stage: "Gelombang II",
+      dates: "1 Februari – 15 April 2026",
+      status: "Selesai",
+      color: "bg-slate-400",
+    },
+    {
+      stage: "Gelombang III",
+      dates: "16 April – 30 Juni 2026",
+      status: "Selesai",
       color: "bg-slate-400",
     },
   ];
@@ -59,14 +53,14 @@ export function News() {
           {/* Jadwal Pelaksanaan */}
           <div className="lg:col-span-5 bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-[#be0817]/10 text-[#be0817] flex items-center justify-center">
                 <Calendar className="w-5 h-5" />
               </div>
               <div>
                 <h3 className="text-xl font-bold text-slate-900">
-                  Jadwal Seleksi SPMB
+                  Jadwal Pendaftaran SPMB
                 </h3>
-                <p className="text-xs text-slate-500">Tahun Ajaran 2026/2027</p>
+                <p className="text-xs text-slate-500">Tahun Ajaran 2027/2028</p>
               </div>
             </div>
 
@@ -90,10 +84,10 @@ export function News() {
               ))}
             </div>
 
-            <div className="mt-8 pt-6 border-t border-slate-100 bg-blue-50/60 p-4 rounded-xl flex items-start gap-3">
-              <Info className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+            <div className="mt-8 pt-6 border-t border-slate-100 bg-[#be0817]/5 p-4 rounded-xl flex items-start gap-3">
+              <Info className="w-5 h-5 text-[#be0817] shrink-0 mt-0.5" />
               <p className="text-xs text-slate-600 leading-relaxed">
-                Jadwal dapat disesuaikan sewaktu-waktu sesuai ketentuan dinas pendidikan setempat. Selalu pantau dashboard pengumuman Anda.
+                Jadwal dapat berubah sewaktu-waktu sesuai kebijakan sekolah. Selalu pantau informasi terbaru di laman pengumuman.
               </p>
             </div>
           </div>
@@ -101,7 +95,7 @@ export function News() {
           {/* Berita & Pengumuman Terbaru */}
           <div className="lg:col-span-7">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-[#be0817]/10 text-[#be0817] flex items-center justify-center">
                 <Bell className="w-5 h-5" />
               </div>
               <div>
@@ -116,15 +110,15 @@ export function News() {
               {announcements.map((post, idx) => (
                 <div
                   key={idx}
-                  className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:border-blue-300 hover:shadow-md transition-all"
+                  className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:border-[#be0817]/30 hover:shadow-md transition-all"
                 >
                   <div className="flex items-center justify-between gap-4 mb-2">
-                    <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700">
+                    <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#be0817]/10 text-[#be0817]">
                       {post.tag}
                     </span>
                     <span className="text-xs text-slate-400">{post.date}</span>
                   </div>
-                  <h4 className="text-base font-bold text-slate-800 mb-2 hover:text-blue-600 transition-colors">
+                  <h4 className="text-base font-bold text-slate-800 mb-2 hover:text-[#be0817] transition-colors">
                     {post.title}
                   </h4>
                   <p className="text-xs text-slate-600 leading-relaxed">

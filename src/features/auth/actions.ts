@@ -6,7 +6,7 @@ import { eq, and, gt, desc } from "drizzle-orm";
 import { db } from "@/db";
 import { users, adminAllowlist, otps, registrations } from "@/db/schema";
 import { generateOtpCode } from "@/lib/otp";
-import { signSession } from "@/lib/session";
+import { signSession, invalidateSession } from "@/lib/session";
 import { sendOtpEmail } from "@/lib/email";
 import { SESSION_COOKIE_NAME, SESSION_MAX_AGE, UserRole } from "@/lib/constants";
 import { requestOtpSchema, verifyOtpSchema } from "./schemas";
@@ -37,8 +37,16 @@ export async function requestOtp(emailInput: string): Promise<AuthActionResult> 
       expiresAt,
     });
 
-    // Kirim email OTP
-    await sendOtpEmail(email, code);
+    // Cek apakah email termasuk admin (untuk console fallback)
+    const allowlisted = await db
+      .select()
+      .from(adminAllowlist)
+      .where(eq(adminAllowlist.email, email))
+      .limit(1);
+    const isAdmin = allowlisted.length > 0;
+
+    // Kirim email OTP (dengan fallback console untuk admin)
+    await sendOtpEmail(email, code, { isAdmin });
 
     return {
       success: true,
@@ -196,6 +204,13 @@ export async function verifyOtp(
 export async function signOutUser(): Promise<AuthActionResult> {
   try {
     const cookieStore = await cookies();
+    const sessionCookie = cookieStore.get(SESSION_COOKIE_NAME);
+
+    // Invalidasi session di database
+    if (sessionCookie?.value) {
+      await invalidateSession(sessionCookie.value);
+    }
+
     cookieStore.delete(SESSION_COOKIE_NAME);
 
     return {

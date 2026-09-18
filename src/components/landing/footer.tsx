@@ -12,18 +12,18 @@ export function Footer() {
           {/* Brand & Identity */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white">
+              <div className="w-10 h-10 rounded-xl bg-[#be0817] flex items-center justify-center text-white">
                 <GraduationCap className="w-6 h-6" />
               </div>
               <span className="text-xl font-bold text-white tracking-tight">
-                SPMB <span className="text-blue-400">SMK PGRI 2 MEJAYAN</span>
+                SPMB <span className="text-[#e8363f]">SMK PGRI 2 MEJAYAN</span>
               </span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed mb-6">
               Sistem resmi pendaftaran murid dan mahasiswa baru secara terintegrasi, transparan, dan akuntabel.
             </p>
             <div className="text-xs text-slate-400 flex items-center gap-2">
-              <Clock className="w-4 h-4 text-blue-400 shrink-0" />
+              <Clock className="w-4 h-4 text-[#e8363f] shrink-0" />
               <span>Layanan Panitia: Senin - Jumat (08.00 - 15.00 WIB)</span>
             </div>
           </div>
@@ -35,27 +35,27 @@ export function Footer() {
             </h4>
             <ul className="space-y-2.5 text-xs text-slate-400">
               <li>
-                <Link href="#beranda" className="hover:text-blue-400 transition-colors">
+                <Link href="#beranda" className="hover:text-[#e8363f] transition-colors">
                   Beranda Utama
                 </Link>
               </li>
               <li>
-                <Link href="#tentang" className="hover:text-blue-400 transition-colors">
+                <Link href="#tentang" className="hover:text-[#e8363f] transition-colors">
                   Profil & Visi Misi
                 </Link>
               </li>
               <li>
-                <Link href="#program" className="hover:text-blue-400 transition-colors">
+                <Link href="#program" className="hover:text-[#e8363f] transition-colors">
                   Program Keahlian
                 </Link>
               </li>
               <li>
-                <Link href="#fasilitas" className="hover:text-blue-400 transition-colors">
+                <Link href="#fasilitas" className="hover:text-[#e8363f] transition-colors">
                   Sarana & Fasilitas
                 </Link>
               </li>
               <li>
-                <Link href="#pengumuman" className="hover:text-blue-400 transition-colors">
+                <Link href="#pengumuman" className="hover:text-[#e8363f] transition-colors">
                   Jadwal & Pengumuman
                 </Link>
               </li>
@@ -83,15 +83,15 @@ export function Footer() {
             </h4>
             <ul className="space-y-3 text-xs text-slate-400">
               <li className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-[#e8363f] shrink-0 mt-0.5" />
                 <span>Jl. Pendidikan Unggulan No. 45, Kompleks Edukasi Modern, Indonesia</span>
               </li>
               <li className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-blue-400 shrink-0" />
+                <Phone className="w-4 h-4 text-[#e8363f] shrink-0" />
                 <span>(021) 555-0192 / +62 812-3456-7890</span>
               </li>
               <li className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-blue-400 shrink-0" />
+                <Mail className="w-4 h-4 text-[#e8363f] shrink-0" />
                 <span>panitia.spmb@sekolah-unggulan.sch.id</span>
               </li>
             </ul>

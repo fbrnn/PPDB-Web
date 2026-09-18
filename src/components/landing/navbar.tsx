@@ -17,12 +17,12 @@ export function Navbar({ userRole }: NavbarProps) {
         <div className="flex items-center justify-between h-20">
           {/* Brand Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
+            <div className="w-11 h-11 rounded-xl bg-[#be0817] flex items-center justify-center text-white shadow-md shadow-[#be0817]/20 group-hover:scale-105 transition-transform">
               <GraduationCap className="w-6 h-6" />
             </div>
             <div>
               <span className="text-xl font-bold tracking-tight text-slate-900 block leading-none">
-                SPMB <span className="text-blue-600">SMK PGRI 2 MEJAYAN</span>
+                SPMB <span className="text-[#be0817]">SMK PGRI 2 MEJAYAN</span>
               </span>
               <span className="text-xs font-medium text-slate-400">
                 T.A. 2027/2028
@@ -34,31 +34,31 @@ export function Navbar({ userRole }: NavbarProps) {
           <nav className="hidden md:flex items-center gap-8">
             <Link
               href="#beranda"
-              className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors"
+              className="text-sm font-medium text-slate-600 hover:text-[#be0817] transition-colors"
             >
               Beranda
             </Link>
             <Link
               href="#tentang"
-              className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors"
+              className="text-sm font-medium text-slate-600 hover:text-[#be0817] transition-colors"
             >
               Profil Sekolah
             </Link>
             <Link
               href="#program"
-              className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors"
+              className="text-sm font-medium text-slate-600 hover:text-[#be0817] transition-colors"
             >
               Program Unggulan
             </Link>
             <Link
               href="#fasilitas"
-              className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors"
+              className="text-sm font-medium text-slate-600 hover:text-[#be0817] transition-colors"
             >
               Fasilitas
             </Link>
             <Link
               href="#pengumuman"
-              className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors"
+              className="text-sm font-medium text-slate-600 hover:text-[#be0817] transition-colors"
             >
               Informasi & Jadwal
             </Link>
@@ -73,7 +73,7 @@ export function Navbar({ userRole }: NavbarProps) {
                     ? "/admin/dashboard"
                     : "/dashboard"
                 }
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 shadow-md shadow-blue-600/20 transition-all hover:scale-105"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#be0817] text-white text-sm font-semibold hover:bg-[#a00714] shadow-md shadow-[#be0817]/20 transition-all hover:scale-105"
               >
                 <span>Masuk ke Dashboard</span>
                 <ArrowRight className="w-4 h-4" />
@@ -82,14 +82,14 @@ export function Navbar({ userRole }: NavbarProps) {
               <>
                 <Link
                   href="/login"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-slate-700 hover:text-blue-600 font-medium text-sm transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-slate-700 hover:text-[#be0817] font-medium text-sm transition-colors"
                 >
                   <LogIn className="w-4 h-4" />
                   <span>Masuk</span>
                 </Link>
                 <Link
                   href="/login"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-semibold hover:opacity-95 shadow-md shadow-blue-500/20 transition-all hover:scale-105"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#be0817] text-white text-sm font-semibold hover:bg-[#a00714] shadow-md shadow-[#be0817]/20 transition-all hover:scale-105"
                 >
                   <span>Daftar Sekarang</span>
                   <ArrowRight className="w-4 h-4" />
@@ -121,35 +121,35 @@ export function Navbar({ userRole }: NavbarProps) {
           <Link
             href="#beranda"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-600"
+            className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-[#be0817]/10 hover:text-[#be0817]"
           >
             Beranda
           </Link>
           <Link
             href="#tentang"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-600"
+            className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-[#be0817]/10 hover:text-[#be0817]"
           >
             Profil Sekolah
           </Link>
           <Link
             href="#program"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-600"
+            className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-[#be0817]/10 hover:text-[#be0817]"
           >
             Program Unggulan
           </Link>
           <Link
             href="#fasilitas"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-600"
+            className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-[#be0817]/10 hover:text-[#be0817]"
           >
             Fasilitas
           </Link>
           <Link
             href="#pengumuman"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-600"
+            className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-[#be0817]/10 hover:text-[#be0817]"
           >
             Informasi & Jadwal
           </Link>
@@ -162,7 +162,7 @@ export function Navbar({ userRole }: NavbarProps) {
             </Link>
             <Link
               href="/login"
-              className="w-full text-center py-2.5 rounded-lg bg-blue-600 text-white font-medium text-sm shadow-md"
+              className="w-full text-center py-2.5 rounded-lg bg-[#be0817] text-white font-medium text-sm shadow-md"
             >
               Daftar Sekarang
             </Link>
