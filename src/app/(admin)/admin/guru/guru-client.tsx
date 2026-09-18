@@ -15,11 +15,53 @@ interface GuruClientProps {
   initialTeachers: Teacher[];
 }
 
+function compressImage(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = event.target?.result as string;
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const MAX_DIMENSION = 800;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > MAX_DIMENSION) {
+            height = Math.round((height * MAX_DIMENSION) / width);
+            width = MAX_DIMENSION;
+          }
+        } else {
+          if (height > MAX_DIMENSION) {
+            width = Math.round((width * MAX_DIMENSION) / height);
+            height = MAX_DIMENSION;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, width, height);
+          resolve(canvas.toDataURL("image/jpeg", 0.85));
+        } else {
+          resolve(event.target?.result as string);
+        }
+      };
+      img.onerror = (err) => reject(err);
+    };
+    reader.onerror = (err) => reject(err);
+  });
+}
+
 export function GuruClient({ initialTeachers }: GuruClientProps) {
   const [teachers, setTeachers] = useState<Teacher[]>(initialTeachers);
   const [showDialog, setShowDialog] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isProcessingImage, setIsProcessingImage] = useState(false);
   
   const [formData, setFormData] = useState<Partial<Teacher>>({
     name: "",
@@ -29,6 +71,7 @@ export function GuruClient({ initialTeachers }: GuruClientProps) {
   });
 
   const toastRef = useRef<Toast>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const openNew = () => {
     setFormData({ name: "", subject: "", imageUrl: "", displayOrder: 0 });
@@ -44,6 +87,60 @@ export function GuruClient({ initialTeachers }: GuruClientProps) {
 
   const hideDialog = () => {
     setShowDialog(false);
+  };
+
+  const handleImageFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      toastRef.current?.show({
+        severity: "error",
+        summary: "Format Salah",
+        detail: "Silakan pilih file gambar (JPG, PNG, WebP).",
+      });
+      return;
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+      toastRef.current?.show({
+        severity: "error",
+        summary: "Ukuran Terlalu Besar",
+        detail: "Ukuran gambar maksimal 10MB.",
+      });
+      return;
+    }
+
+    setIsProcessingImage(true);
+    try {
+      const base64 = await compressImage(file);
+      setFormData((prev) => ({ ...prev, imageUrl: base64 }));
+      toastRef.current?.show({
+        severity: "info",
+        summary: "Foto Dipilih",
+        detail: "Foto berhasil dimuat dari galeri.",
+        life: 2000,
+      });
+    } catch (error) {
+      console.error(error);
+      toastRef.current?.show({
+        severity: "error",
+        summary: "Gagal Memproses",
+        detail: "Gagal memproses gambar dari galeri.",
+      });
+    } finally {
+      setIsProcessingImage(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setFormData((prev) => ({ ...prev, imageUrl: "" }));
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   const saveTeacher = async () => {
@@ -147,9 +244,70 @@ export function GuruClient({ initialTeachers }: GuruClientProps) {
           </div>
 
           <div className="flex flex-col gap-2">
-            <label htmlFor="imageUrl" className="text-sm font-semibold">URL Foto (Opsional)</label>
-            <InputText id="imageUrl" value={formData.imageUrl || ''} onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })} placeholder="Kosongkan untuk avatar default" />
-            <small className="text-slate-500">Gunakan link gambar eksternal (JPG/PNG). Jika kosong, akan menggunakan inisial nama.</small>
+            <label className="text-sm font-semibold text-slate-700">Foto Profil Guru</label>
+            
+            <div className="flex items-center gap-4 p-3.5 bg-slate-50 border border-slate-200 rounded-xl">
+              {/* Preview Foto */}
+              <div className="relative shrink-0">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={
+                    formData.imageUrl ||
+                    `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                      formData.name || "Guru"
+                    )}&background=e2e8f0&color=64748b&size=150`
+                  }
+                  alt="Preview Foto"
+                  className="w-16 h-16 rounded-full object-cover border-2 border-white shadow-md bg-slate-200"
+                />
+                {isProcessingImage && (
+                  <div className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center text-white text-xs">
+                    <i className="pi pi-spin pi-spinner" />
+                  </div>
+                )}
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col gap-1.5 flex-1">
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  accept="image/*"
+                  onChange={handleImageFile}
+                  className="hidden"
+                />
+
+                <div className="flex flex-wrap items-center gap-2">
+                  <Button
+                    type="button"
+                    label={formData.imageUrl ? "Ganti dari Galeri" : "Pilih dari Galeri"}
+                    icon="pi pi-image"
+                    size="small"
+                    className="bg-red-600 hover:bg-red-700 text-white border-none text-xs py-1.5 px-3"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={isProcessingImage || isSubmitting}
+                  />
+
+                  {formData.imageUrl && (
+                    <Button
+                      type="button"
+                      label="Hapus"
+                      icon="pi pi-trash"
+                      size="small"
+                      severity="danger"
+                      text
+                      className="text-xs py-1.5 px-2.5 text-red-600 hover:bg-red-50"
+                      onClick={handleRemoveImage}
+                      disabled={isProcessingImage || isSubmitting}
+                    />
+                  )}
+                </div>
+
+                <span className="text-[11px] text-slate-500 leading-tight">
+                  Pilih foto dari galeri HP atau komputer. Format JPG, PNG, atau WebP.
+                </span>
+              </div>
+            </div>
           </div>
 
           <div className="flex flex-col gap-2">
@@ -161,7 +319,7 @@ export function GuruClient({ initialTeachers }: GuruClientProps) {
         
         <div className="flex justify-end gap-2 mt-6">
           <Button label="Batal" icon="pi pi-times" outlined onClick={hideDialog} disabled={isSubmitting} />
-          <Button label="Simpan" icon={isSubmitting ? "pi pi-spin pi-spinner" : "pi pi-check"} onClick={saveTeacher} disabled={isSubmitting} />
+          <Button label="Simpan" icon={isSubmitting ? "pi pi-spin pi-spinner" : "pi pi-check"} onClick={saveTeacher} disabled={isSubmitting} className="bg-red-600 hover:bg-red-700 text-white border-none" />
         </div>
       </Dialog>
     </div>
