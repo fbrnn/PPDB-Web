@@ -151,7 +151,7 @@ export function LoginForm() {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full py-3 flex justify-center items-center gap-2 bg-[#2b90d9] hover:bg-[#207bbd] text-white rounded-xl shadow-lg shadow-blue-500/20 border-none text-sm font-bold tracking-wide transition-all"
+            className="w-full py-3 flex justify-center items-center gap-2 bg-[#dc2626] hover:bg-[#b91c1c] text-white rounded-xl shadow-lg shadow-red-500/20 border-none text-sm font-bold tracking-wide transition-all"
           >
             {isSubmitting ? (
               <i className="pi pi-spin pi-spinner" />
@@ -162,7 +162,7 @@ export function LoginForm() {
           <div className="pt-4 text-center">
             <p className="text-[11px] text-white/60">
               Ingin kembali?{" "}
-              <Link href="/" className="text-[#3ba2eb] hover:text-[#52b1f3] font-semibold transition-colors">
+              <Link href="/" className="text-[#f87171] hover:text-[#fca5a5] font-semibold transition-colors">
                 Ke Beranda
               </Link>
             </p>
@@ -189,7 +189,7 @@ export function LoginForm() {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full py-3 flex justify-center items-center gap-2 bg-[#2b90d9] hover:bg-[#207bbd] text-white rounded-xl shadow-lg shadow-blue-500/20 border-none text-sm font-bold tracking-wide transition-all"
+            className="w-full py-3 flex justify-center items-center gap-2 bg-[#dc2626] hover:bg-[#b91c1c] text-white rounded-xl shadow-lg shadow-red-500/20 border-none text-sm font-bold tracking-wide transition-all"
           >
             {isSubmitting ? (
               <i className="pi pi-spin pi-spinner" />
@@ -215,7 +215,7 @@ export function LoginForm() {
             <button
               type="button"
               onClick={handleRequestOtp}
-              className="text-[#3ba2eb] hover:text-[#52b1f3] font-semibold transition-colors cursor-pointer"
+              className="text-[#f87171] hover:text-[#fca5a5] font-semibold transition-colors cursor-pointer"
               disabled={isSubmitting}
             >
               Kirim Ulang
