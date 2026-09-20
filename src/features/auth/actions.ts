@@ -46,17 +46,38 @@ export async function requestOtp(emailInput: string): Promise<AuthActionResult> 
     const isAdmin = allowlisted.length > 0;
 
     // Kirim email OTP (dengan fallback console untuk admin)
-    await sendOtpEmail(email, code, { isAdmin });
+    const emailSent = await sendOtpEmail(email, code, { isAdmin });
+
+    if (!emailSent && !isAdmin) {
+      return {
+        success: false,
+        message: "Gagal mengirimkan email verifikasi OTP. Periksa kembali konfigurasi SMTP pada server.",
+      };
+    }
 
     return {
       success: true,
       message: `Kode verifikasi OTP telah dikirimkan ke ${email}. Silakan periksa kotak masuk email Anda.`,
     };
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Error in requestOtp:", error);
+    
+    const err = error as { code?: string; message?: string };
+    if (
+      err?.code === "ECONNREFUSED" ||
+      err?.code === "ETIMEDOUT" ||
+      err?.message?.includes("connect") ||
+      err?.message?.includes("ENOTFOUND")
+    ) {
+      return {
+        success: false,
+        message: "Gagal terhubung ke database. Pastikan DATABASE_URL di Vercel sudah mengarah ke database cloud (bukan localhost).",
+      };
+    }
+
     return {
       success: false,
-      message: "Gagal mengirimkan kode OTP. Silakan coba beberapa saat lagi.",
+      message: "Gagal mengirimkan kode OTP. Silakan periksa konfigurasi server.",
     };
   }
 }

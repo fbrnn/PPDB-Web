@@ -10,13 +10,25 @@ const globalForDb = globalThis as unknown as {
   pool: mysql.Pool | undefined;
 };
 
+const isRemoteDb =
+  Boolean(process.env.DATABASE_URL) &&
+  !process.env.DATABASE_URL?.includes("localhost") &&
+  !process.env.DATABASE_URL?.includes("127.0.0.1");
+
+if (process.env.NODE_ENV === "production" && !isRemoteDb) {
+  console.warn(
+    "⚠️ [DATABASE WARNING] Aplikasi berjalan di Production (Vercel) namun DATABASE_URL belum diarahkan ke Cloud Database atau masih menggunakan localhost. Vercel tidak dapat mengakses localhost."
+  );
+}
+
 const pool =
   globalForDb.pool ??
   mysql.createPool({
     uri: connectionUri,
     waitForConnections: true,
-    connectionLimit: 10,
+    connectionLimit: process.env.NODE_ENV === "production" ? 5 : 10,
     queueLimit: 0,
+    ssl: isRemoteDb ? { rejectUnauthorized: false } : undefined,
   });
 
 if (process.env.NODE_ENV !== "production") {

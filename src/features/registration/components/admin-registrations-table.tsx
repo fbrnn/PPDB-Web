@@ -123,7 +123,7 @@ export function AdminRegistrationsTable({
       <Tag
         value={REGISTRATION_STATUS_LABELS[rowData.status]}
         severity={REGISTRATION_STATUS_SEVERITY[rowData.status]}
-        className="text-[11px] px-2.5 py-1"
+        className="!text-[11px] !font-semibold !px-2.5 !py-1 !rounded-md"
       />
     );
   };
@@ -136,7 +136,7 @@ export function AdminRegistrationsTable({
         size="small"
         outlined
         onClick={() => handleOpenDetail(rowData)}
-        className="text-xs py-1.5 px-3"
+        className="!text-xs !py-1 !px-2.5 !border-slate-300 !text-slate-700 hover:!bg-slate-100 hover:!text-slate-900 !rounded-lg"
       />
     );
   };
@@ -146,40 +146,44 @@ export function AdminRegistrationsTable({
       <Toast ref={toastRef} />
 
       {/* Filter Bar */}
-      <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
-          <span className="p-input-icon-left w-full sm:w-72">
-            <i className="pi pi-search text-slate-400 pl-3" />
+          <div className="relative flex items-center w-full sm:w-72">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+              <i className="pi pi-search text-xs leading-none" />
+            </div>
             <InputText
               value={globalFilter}
               onChange={(e) => setGlobalFilter(e.target.value)}
               placeholder="Cari nama, NISN, email..."
-              className="w-full pl-10 text-xs py-2"
+              className="w-full !pl-9 !pr-3 !py-2 !text-xs !bg-white !rounded-lg !border-slate-300"
             />
-          </span>
+          </div>
 
           <Dropdown
             value={statusFilter}
             options={statusOptions}
             onChange={(e) => setStatusFilter(e.value)}
             placeholder="Pilih Status"
-            className="w-full sm:w-52 text-xs"
+            className="w-full sm:w-52 !text-xs !rounded-lg !border-slate-300"
           />
         </div>
 
-        <div className="text-xs text-slate-500 font-medium">
+        <div className="text-xs text-slate-500 font-medium px-3 py-1.5 bg-slate-50 rounded-lg border border-slate-200 shrink-0">
           Menampilkan <span className="font-bold text-slate-800">{filteredData.length}</span> dari{" "}
           <span className="font-bold text-slate-800">{dataList.length}</span> pendaftar
         </div>
       </div>
 
       {/* PrimeReact DataTable */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
         <DataTable
           value={filteredData}
           paginator
           rows={10}
           rowsPerPageOptions={[10, 25, 50]}
+          paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
+          currentPageReportTemplate="Menampilkan {first} - {last} dari {totalRecords} data"
           emptyMessage="Tidak ada data pendaftar yang cocok dengan filter."
           className="text-xs"
           rowHover
@@ -187,19 +191,56 @@ export function AdminRegistrationsTable({
           <Column
             field="fullName"
             header="Nama Lengkap"
-            body={(row) => (
-              <div>
-                <div className="font-bold text-slate-800">
-                  {row.fullName || "(Belum mengisi nama)"}
+            body={(row: RegistrationListItem) => (
+              <div className="py-0.5">
+                <div className="font-semibold text-slate-900 text-xs">
+                  {row.fullName || (
+                    <span className="text-slate-400 italic font-normal">
+                      (Belum mengisi nama)
+                    </span>
+                  )}
                 </div>
-                <div className="text-[10px] text-slate-400">{row.userEmail}</div>
+                <div className="text-[11px] text-slate-500 font-normal mt-0.5">
+                  {row.userEmail}
+                </div>
               </div>
             )}
             sortable
           />
-          <Column field="nisn" header="NISN" sortable />
-          <Column field="previousSchoolName" header="Sekolah Asal" sortable />
-          <Column field="city" header="Kota Domisili" sortable />
+          <Column
+            field="nisn"
+            header="NISN"
+            body={(row: RegistrationListItem) =>
+              row.nisn ? (
+                <span className="font-mono text-xs text-slate-700 bg-slate-100 px-2 py-0.5 rounded border border-slate-200/80">
+                  {row.nisn}
+                </span>
+              ) : (
+                <span className="text-slate-300">-</span>
+              )
+            }
+            sortable
+          />
+          <Column
+            field="previousSchoolName"
+            header="Sekolah Asal"
+            body={(row: RegistrationListItem) => (
+              <span className="text-slate-700">
+                {row.previousSchoolName || <span className="text-slate-300">-</span>}
+              </span>
+            )}
+            sortable
+          />
+          <Column
+            field="city"
+            header="Kota Domisili"
+            body={(row: RegistrationListItem) => (
+              <span className="text-slate-700 capitalize">
+                {row.city || <span className="text-slate-300">-</span>}
+              </span>
+            )}
+            sortable
+          />
           <Column
             field="status"
             header="Status Pendaftaran"
@@ -209,13 +250,23 @@ export function AdminRegistrationsTable({
           <Column
             field="updatedAt"
             header="Terakhir Diperbarui"
-            body={(row) => new Date(row.updatedAt).toLocaleString("id-ID")}
+            body={(row: RegistrationListItem) => (
+              <span className="text-slate-600 font-mono text-[11px]">
+                {new Date(row.updatedAt).toLocaleString("id-ID", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </span>
+            )}
             sortable
           />
           <Column
             header="Aksi"
             body={actionBodyTemplate}
-            style={{ width: "110px", textAlign: "center" }}
+            style={{ width: "100px", textAlign: "center" }}
           />
         </DataTable>
       </div>

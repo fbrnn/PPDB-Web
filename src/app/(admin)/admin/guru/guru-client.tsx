@@ -231,21 +231,66 @@ export function GuruClient({ initialTeachers }: GuruClientProps) {
         <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '8rem' }} />
       </DataTable>
 
-      <Dialog visible={showDialog} style={{ width: '450px' }} header={isEdit ? "Edit Guru" : "Tambah Guru"} modal className="p-fluid" onHide={hideDialog}>
-        <div className="flex flex-col gap-4 mt-2">
-          <div className="flex flex-col gap-2">
-            <label htmlFor="name" className="text-sm font-semibold">Nama Lengkap & Gelar *</label>
-            <InputText id="name" value={formData.name || ''} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required autoFocus />
+      <Dialog
+        visible={showDialog}
+        style={{ width: "90vw", maxWidth: "500px" }}
+        header={isEdit ? "Edit Guru" : "Tambah Guru"}
+        modal
+        onHide={hideDialog}
+        footer={
+          <div className="flex items-center justify-end gap-2.5">
+            <Button
+              type="button"
+              label="Batal"
+              icon="pi pi-times"
+              outlined
+              onClick={hideDialog}
+              disabled={isSubmitting}
+              className="!text-xs !py-2 !px-4 !border-slate-300 !text-slate-700 hover:!bg-slate-100 !rounded-lg"
+            />
+            <Button
+              type="button"
+              label="Simpan"
+              icon={isSubmitting ? "pi pi-spin pi-spinner" : "pi pi-check"}
+              onClick={saveTeacher}
+              disabled={isSubmitting}
+              className="!bg-red-600 hover:!bg-red-700 !text-white !border-none !text-xs !py-2 !px-5 !rounded-lg !shadow-xs"
+            />
           </div>
-          
-          <div className="flex flex-col gap-2">
-            <label htmlFor="subject" className="text-sm font-semibold">Mata Pelajaran *</label>
-            <InputText id="subject" value={formData.subject || ''} onChange={(e) => setFormData({ ...formData, subject: e.target.value })} required />
+        }
+      >
+        <div className="flex flex-col gap-4 pt-1">
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="name" className="text-xs font-semibold text-slate-700">
+              Nama Lengkap & Gelar <span className="text-red-500">*</span>
+            </label>
+            <InputText
+              id="name"
+              value={formData.name || ""}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              placeholder="Contoh: Dra. Hj. Siti Aminah, M.Pd"
+              required
+              autoFocus
+              className="w-full !text-xs !py-2 !px-3 !rounded-lg !border-slate-300"
+            />
           </div>
 
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-semibold text-slate-700">Foto Profil Guru</label>
-            
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="subject" className="text-xs font-semibold text-slate-700">
+              Mata Pelajaran <span className="text-red-500">*</span>
+            </label>
+            <InputText
+              id="subject"
+              value={formData.subject || ""}
+              onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+              placeholder="Contoh: Teknik Komputer & Jaringan"
+              required
+              className="w-full !text-xs !py-2 !px-3 !rounded-lg !border-slate-300"
+            />
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <label className="text-xs font-semibold text-slate-700">Foto Profil Guru</label>
             <div className="flex items-center gap-4 p-3.5 bg-slate-50 border border-slate-200 rounded-xl">
               {/* Preview Foto */}
               <div className="relative shrink-0">
@@ -258,7 +303,7 @@ export function GuruClient({ initialTeachers }: GuruClientProps) {
                     )}&background=e2e8f0&color=64748b&size=150`
                   }
                   alt="Preview Foto"
-                  className="w-16 h-16 rounded-full object-cover border-2 border-white shadow-md bg-slate-200"
+                  className="w-14 h-14 rounded-full object-cover border-2 border-white shadow-xs bg-slate-200"
                 />
                 {isProcessingImage && (
                   <div className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center text-white text-xs">
@@ -268,7 +313,7 @@ export function GuruClient({ initialTeachers }: GuruClientProps) {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex flex-col gap-1.5 flex-1">
+              <div className="flex flex-col gap-1.5 flex-1 min-w-0">
                 <input
                   type="file"
                   ref={fileInputRef}
@@ -283,7 +328,7 @@ export function GuruClient({ initialTeachers }: GuruClientProps) {
                     label={formData.imageUrl ? "Ganti dari Galeri" : "Pilih dari Galeri"}
                     icon="pi pi-image"
                     size="small"
-                    className="bg-red-600 hover:bg-red-700 text-white border-none text-xs py-1.5 px-3"
+                    className="!bg-red-600 hover:!bg-red-700 !text-white !border-none !text-xs !py-1.5 !px-3 !rounded-lg"
                     onClick={() => fileInputRef.current?.click()}
                     disabled={isProcessingImage || isSubmitting}
                   />
@@ -296,7 +341,7 @@ export function GuruClient({ initialTeachers }: GuruClientProps) {
                       size="small"
                       severity="danger"
                       text
-                      className="text-xs py-1.5 px-2.5 text-red-600 hover:bg-red-50"
+                      className="!text-xs !py-1.5 !px-2.5 !text-red-600 hover:!bg-red-50 !rounded-lg"
                       onClick={handleRemoveImage}
                       disabled={isProcessingImage || isSubmitting}
                     />
@@ -310,16 +355,25 @@ export function GuruClient({ initialTeachers }: GuruClientProps) {
             </div>
           </div>
 
-          <div className="flex flex-col gap-2">
-            <label htmlFor="displayOrder" className="text-sm font-semibold">Urutan Tampil</label>
-            <InputNumber id="displayOrder" value={formData.displayOrder} onValueChange={(e) => setFormData({ ...formData, displayOrder: e.value || 0 })} showButtons min={0} />
-            <small className="text-slate-500">Angka lebih kecil akan tampil lebih dulu.</small>
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="displayOrder" className="text-xs font-semibold text-slate-700">
+              Urutan Tampil
+            </label>
+            <InputNumber
+              id="displayOrder"
+              value={formData.displayOrder}
+              onValueChange={(e) =>
+                setFormData({ ...formData, displayOrder: e.value ?? 0 })
+              }
+              showButtons
+              min={0}
+              className="w-full"
+              inputClassName="!text-xs !py-2 !px-3 !rounded-lg !border-slate-300"
+            />
+            <small className="text-[11px] text-slate-500">
+              Angka lebih kecil akan tampil lebih dulu.
+            </small>
           </div>
-        </div>
-        
-        <div className="flex justify-end gap-2 mt-6">
-          <Button label="Batal" icon="pi pi-times" outlined onClick={hideDialog} disabled={isSubmitting} />
-          <Button label="Simpan" icon={isSubmitting ? "pi pi-spin pi-spinner" : "pi pi-check"} onClick={saveTeacher} disabled={isSubmitting} className="bg-red-600 hover:bg-red-700 text-white border-none" />
         </div>
       </Dialog>
     </div>

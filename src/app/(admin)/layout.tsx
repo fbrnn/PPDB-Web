@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 import { requireAdmin } from "@/features/auth/auth";
 import { signOutUser } from "@/features/auth/actions";
 import {
-  ShieldAlert,
   LayoutDashboard,
   Users,
   LogOut,
@@ -34,11 +33,8 @@ export default async function AdminLayout({
             <div className="flex items-center gap-8">
               <Link
                 href="/admin/dashboard"
-                className="flex items-center gap-2.5 font-bold text-base"
+                className="font-bold text-base"
               >
-                <div className="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center text-white">
-                  <ShieldAlert className="w-4 h-4" />
-                </div>
                 <span>
                   Admin <span className="text-red-400">SPMB</span>
                 </span>
