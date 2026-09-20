@@ -2,24 +2,22 @@ import { drizzle } from "drizzle-orm/mysql2";
 import mysql from "mysql2/promise";
 import * as schema from "./schema";
 
-const connectionUri =
+const rawUri =
   process.env.DATABASE_URL || "mysql://root:@localhost:3306/spmb_db";
 
-// Global pool connection cache for Next.js development hot-reloading
-const globalForDb = globalThis as unknown as {
-  pool: mysql.Pool | undefined;
-};
+// mysql2 tidak mengenal parameter ?ssl-mode=REQUIRED di URL.
+// Hapus parameter tersebut dan tangani SSL melalui config object.
+const connectionUri = rawUri.replace(/[?&]ssl-mode=[^&]*/gi, "");
 
 const isRemoteDb =
   Boolean(process.env.DATABASE_URL) &&
   !process.env.DATABASE_URL?.includes("localhost") &&
   !process.env.DATABASE_URL?.includes("127.0.0.1");
 
-if (process.env.NODE_ENV === "production" && !isRemoteDb) {
-  console.warn(
-    "⚠️ [DATABASE WARNING] Aplikasi berjalan di Production (Vercel) namun DATABASE_URL belum diarahkan ke Cloud Database atau masih menggunakan localhost. Vercel tidak dapat mengakses localhost."
-  );
-}
+// Global pool connection cache for Next.js development hot-reloading
+const globalForDb = globalThis as unknown as {
+  pool: mysql.Pool | undefined;
+};
 
 const pool =
   globalForDb.pool ??
@@ -36,3 +34,4 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 export const db = drizzle(pool, { schema, mode: "default" });
+
