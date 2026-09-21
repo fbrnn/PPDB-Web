@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { db } from "@/db";
-import { sql } from "drizzle-orm";
+import mysql from "mysql2/promise";
 
 /**
  * Endpoint diagnosa untuk mengecek koneksi database dan konfigurasi SMTP di Vercel.
@@ -14,9 +13,10 @@ export async function GET() {
   };
 
   // 1. Cek Environment Variables
+  const rawUrl = process.env.DATABASE_URL || "";
   checks.envVars = {
-    DATABASE_URL: process.env.DATABASE_URL
-      ? `✅ Set (${process.env.DATABASE_URL.replace(/:([^@]+)@/, ":****@")})`
+    DATABASE_URL: rawUrl
+      ? `✅ Set (${rawUrl.replace(/:([^@:]+)@/, ":****@")})`
       : "❌ NOT SET — akan fallback ke localhost",
     SESSION_SECRET: process.env.SESSION_SECRET ? "✅ Set" : "❌ NOT SET",
     SMTP_USER: process.env.SMTP_USER
@@ -25,48 +25,89 @@ export async function GET() {
     SMTP_PASS: process.env.SMTP_PASS ? "✅ Set" : "❌ NOT SET",
   };
 
-  // 2. Cek koneksi database
+  // 2. Cek koneksi database - LANGSUNG via mysql2 (bypass Drizzle)
+  const dbUrl = rawUrl || "mysql://root:@localhost:3306/spmb_db";
+  const cleanUrl = dbUrl.replace(/[?&]ssl-mode=[^&]*/gi, "");
+
+  const isRemote =
+    !dbUrl.includes("localhost") && !dbUrl.includes("127.0.0.1");
+
+  let parsedConfig: mysql.ConnectionOptions = {};
   try {
-    const result = await db.execute(sql`SELECT 1 as ok`);
+    const parsed = new URL(cleanUrl);
+    parsedConfig = {
+      host: parsed.hostname,
+      port: parseInt(parsed.port || "3306", 10),
+      user: decodeURIComponent(parsed.username),
+      password: decodeURIComponent(parsed.password),
+      database: parsed.pathname.replace(/^\//, ""),
+      ssl: isRemote ? { rejectUnauthorized: false } : undefined,
+      connectTimeout: 10000,
+    };
+    checks.parsedConnection = {
+      host: parsedConfig.host,
+      port: parsedConfig.port,
+      user: parsedConfig.user,
+      database: parsedConfig.database,
+      ssl: isRemote ? "{ rejectUnauthorized: false }" : "disabled",
+    };
+  } catch (e: unknown) {
+    checks.parsedConnection = `❌ URL parse error: ${(e as Error).message}`;
+  }
+
+  let connection: mysql.Connection | null = null;
+  try {
+    connection = await mysql.createConnection(parsedConfig);
+    const [rows] = await connection.query("SELECT 1 as ok");
     checks.database = {
       status: "✅ Connected",
-      result: result,
+      result: rows,
     };
+
+    // Cek tabel
+    try {
+      await connection.query("SELECT COUNT(*) as cnt FROM sessions");
+      checks.sessionsTable = "✅ Exists";
+    } catch (e: unknown) {
+      checks.sessionsTable = `❌ MISSING — ${(e as Error).message}`;
+    }
+
+    try {
+      await connection.query("SELECT COUNT(*) as cnt FROM otps");
+      checks.otpsTable = "✅ Exists";
+    } catch (e: unknown) {
+      checks.otpsTable = `❌ MISSING — ${(e as Error).message}`;
+    }
+
+    try {
+      await connection.query("SELECT COUNT(*) as cnt FROM users");
+      checks.usersTable = "✅ Exists";
+    } catch (e: unknown) {
+      checks.usersTable = `❌ MISSING — ${(e as Error).message}`;
+    }
   } catch (error: unknown) {
-    const err = error as { message?: string; code?: string };
+    const err = error as { message?: string; code?: string; errno?: number; sqlState?: string };
     checks.database = {
       status: "❌ FAILED",
       errorCode: err?.code || "unknown",
+      errno: err?.errno,
+      sqlState: err?.sqlState,
       errorMessage: err?.message || "unknown error",
     };
+  } finally {
+    if (connection) {
+      await connection.end().catch(() => {});
+    }
   }
 
-  // 3. Cek tabel sessions exists
-  try {
-    await db.execute(sql`SELECT COUNT(*) as cnt FROM sessions`);
-    checks.sessionsTable = "✅ Exists";
-  } catch (error: unknown) {
-    const err = error as { message?: string };
-    checks.sessionsTable = `❌ MISSING — ${err?.message || "Table not found. Jalankan: npm run db:push"}`;
-  }
-
-  // 4. Cek tabel otps exists
-  try {
-    await db.execute(sql`SELECT COUNT(*) as cnt FROM otps`);
-    checks.otpsTable = "✅ Exists";
-  } catch (error: unknown) {
-    const err = error as { message?: string };
-    checks.otpsTable = `❌ MISSING — ${err?.message || "Table not found. Jalankan: npm run db:push"}`;
-  }
-
-  // 5. Cek SMTP connection
+  // 3. Cek SMTP connection
   try {
     const nodemailer = await import("nodemailer");
     const user = process.env.SMTP_USER;
     const pass = process.env.SMTP_PASS;
 
     if (!user || !pass) {
-      checks.smtp = "⚠️ SMTP_USER / SMTP_PASS belum diset. Email OTP tidak akan terkirim.";
+      checks.smtp = "⚠️ SMTP_USER / SMTP_PASS belum diset.";
     } else {
       const transporter = nodemailer.default.createTransport({
         service: "gmail",
