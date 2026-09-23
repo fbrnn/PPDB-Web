@@ -63,7 +63,7 @@ export default async function StudentDashboardPage() {
       <div className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/90 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div>
           <span className="text-xs font-semibold px-3 py-1 rounded-full bg-red-50 text-red-700">
-            Tahun Ajaran 2026/2027
+            Tahun Ajaran 2027/2028
           </span>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mt-2">
             Selamat Datang, {reg.fullName || "Calon Siswa Baru"}
@@ -156,7 +156,7 @@ export default async function StudentDashboardPage() {
           </p>
           <div className="pt-2">
             <a
-              href="https://wa.me/6281234567890"
+              href="https://wa.me/6285607927791"
               target="_blank"
               rel="noreferrer"
               className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl border border-slate-200 hover:bg-slate-50 text-xs font-semibold text-slate-700 transition-colors"

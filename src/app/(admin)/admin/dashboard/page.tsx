@@ -27,7 +27,7 @@ export default async function AdminDashboardPage() {
             Ringkasan Statistik Pendaftaran
           </h1>
           <p className="text-xs text-slate-500 mt-1">
-            Data real-time penerimaan calon siswa baru tahun ajaran 2026/2027.
+            Data real-time penerimaan calon siswa baru tahun ajaran 2027/2028.
           </p>
         </div>
 
