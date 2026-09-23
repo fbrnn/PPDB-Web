@@ -34,15 +34,15 @@ export function News() {
     },
     {
       tag: "Informasi",
-      title: "Program Beasiswa Pendidikan Penuh untuk Siswa Berprestasi",
+      title: "Penyaluran Bantuan Program Indonesia Pintar (PIP)",
       date: "01 Maret 2026",
-      summary: "Tersedia kuota beasiswa bebas biaya pendidikan bagi calon murid yang memiliki sertifikat kejuaraan tingkat Kota/Provinsi/Nasional.",
+      summary: "Bantuan tunai pendidikan dari pemerintah bagi siswa pemegang KIP untuk mendukung kelancaran kegiatan belajar.",
     },
     {
       tag: "Sosialisasi",
-      title: "Open House & Seminar Pengenalan Kurikulum Merdeka",
+      title: "Program Praktik Kerja Lapangan (PKL) Bersama Mitra Industri yang Berkompeten",
       date: "25 Februari 2026",
-      summary: "Undangan bagi calon wali murid untuk menghadiri tur kampus dan konsultasi peminatan program keahlian secara gratis.",
+      summary: "Kerja sama resmi dengan mitra industri berkompeten untuk memberikan pengalaman kerja berbasis standar industri bagi seluruh peserta didik.",
     },
   ];
 

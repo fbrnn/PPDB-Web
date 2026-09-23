@@ -87,7 +87,7 @@ export default async function StudentLayout({
       </main>
 
       <footer className="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-400">
-        &copy; {new Date().getFullYear()} SPMB Online. Layanan Penerimaan Murid Baru.
+        &copy; SPMB Online. Layanan Penerimaan Murid Baru.
       </footer>
     </div>
   );

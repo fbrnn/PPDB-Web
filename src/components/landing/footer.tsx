@@ -8,7 +8,7 @@ export function Footer() {
   return (
     <footer className="bg-slate-900 text-slate-300 pt-16 pb-12 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-12 justify-items-center">
           {/* Brand & Identity */}
           <div>
             <div className="flex items-center gap-3 mb-4">
@@ -19,10 +19,10 @@ export function Footer() {
                 SPMB <span className="text-[#e8363f]">SMK PGRI 2 MEJAYAN</span>
               </span>
             </div>
-            <p className="text-xs text-slate-400 leading-relaxed mb-6">
+            <p className="text-sm text-slate-400 leading-relaxed mb-6">
               Sistem resmi pendaftaran murid dan mahasiswa baru secara terintegrasi, transparan, dan akuntabel.
             </p>
-            <div className="text-xs text-slate-400 flex items-center gap-2">
+            <div className="text-sm text-slate-400 flex items-center gap-2">
               <Clock className="w-4 h-4 text-[#e8363f] shrink-0" />
               <span>Layanan Panitia: Senin - Jumat (08.00 - 15.00 WIB)</span>
             </div>
@@ -30,10 +30,10 @@ export function Footer() {
 
           {/* Navigasi Cepat */}
           <div>
-            <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+            <h4 className="text-base font-semibold text-white uppercase tracking-wider mb-4">
               Tautan Cepat
             </h4>
-            <ul className="space-y-2.5 text-xs text-slate-400">
+            <ul className="space-y-2.5 text-sm text-slate-400">
               <li>
                 <Link href="#beranda" className="hover:text-[#e8363f] transition-colors">
                   Beranda Utama
@@ -62,44 +62,30 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Jalur Pendaftaran */}
-          <div>
-            <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
-              Jalur Penerimaan
-            </h4>
-            <ul className="space-y-2.5 text-xs text-slate-400">
-              <li>Jalur Prestasi Akademik & Non-Akademik</li>
-              <li>Jalur Afirmasi Keluarga Sejahtera</li>
-              <li>Jalur Zonasi Domisili Wilayah</li>
-              <li>Jalur Reguler Tes Potensi Akademik</li>
-              <li>Program Beasiswa Kemitraan</li>
-            </ul>
-          </div>
-
           {/* Kontak Sekretariat PPDB */}
           <div>
-            <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+            <h4 className="text-base font-semibold text-white uppercase tracking-wider mb-4">
               Sekretariat PPDB
             </h4>
-            <ul className="space-y-3 text-xs text-slate-400">
+            <ul className="space-y-3 text-sm text-slate-400">
               <li className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-[#e8363f] shrink-0 mt-0.5" />
-                <span>Jl. Pendidikan Unggulan No. 45, Kompleks Edukasi Modern, Indonesia</span>
+                <span>Jalan Panglima Sudirman No.69 Mejayan, Kabupaten Madiun.</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-[#e8363f] shrink-0" />
-                <span>(021) 555-0192 / +62 812-3456-7890</span>
+                <span>+62 856-0792-7791</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-[#e8363f] shrink-0" />
-                <span>panitia.spmb@sekolah-unggulan.sch.id</span>
+                <span>smkpgri_2mjyn@yahoo.co.id</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-          <p>&copy; {new Date().getFullYear()} SPMB SMK PGRI 2 MEJAYAN. Hak Cipta Dilindungi Undang-Undang.</p>
+        <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-sm text-slate-500 gap-4">
+          <p>&copy; SPMB SMK PGRI 2 MEJAYAN. Hak Cipta Dilindungi Undang-Undang.</p>
           <div className="flex items-center gap-6">
             <Link href="/login" className="hover:text-slate-300">
               Masuk Akun
