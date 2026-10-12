@@ -9,6 +9,7 @@ import {
   LogOut,
   ExternalLink,
   GraduationCap,
+  Settings,
 } from "lucide-react";
 
 export default async function AdminLayout({
@@ -17,6 +18,7 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }) {
   const admin = await requireAdmin();
+  const isSuperAdmin = admin.role === "SUPER_ADMIN";
 
   async function handleSignOut() {
     "use server";
@@ -62,6 +64,15 @@ export default async function AdminLayout({
                   <GraduationCap className="w-4 h-4" />
                   <span>Katalog Guru</span>
                 </Link>
+                {isSuperAdmin && (
+                  <Link
+                    href="/admin/pengaturan"
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-amber-300 hover:text-amber-100 hover:bg-slate-800 transition-colors"
+                  >
+                    <Settings className="w-4 h-4" />
+                    <span>Pengaturan</span>
+                  </Link>
+                )}
                 <Link
                   href="/"
                   target="_blank"
@@ -78,8 +89,12 @@ export default async function AdminLayout({
                 <div className="text-xs font-semibold text-white">
                   {admin.email}
                 </div>
-                <div className="text-[10px] text-red-400 font-bold uppercase tracking-wider">
-                  {admin.role}
+                <div
+                  className={`text-[10px] font-bold uppercase tracking-wider ${
+                    isSuperAdmin ? "text-amber-400" : "text-red-400"
+                  }`}
+                >
+                  {isSuperAdmin ? "Super Admin" : "Admin"}
                 </div>
               </div>
 
@@ -108,3 +123,4 @@ export default async function AdminLayout({
     </div>
   );
 }
+

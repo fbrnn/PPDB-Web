@@ -23,3 +23,16 @@ export const verifyOtpSchema = z.object({
 
 export type RequestOtpInput = z.infer<typeof requestOtpSchema>;
 export type VerifyOtpInput = z.infer<typeof verifyOtpSchema>;
+
+export const addAdminSchema = z.object({
+  email: z
+    .string()
+    .min(1, "Email wajib diisi")
+    .email("Format email tidak valid")
+    .transform((val) => val.trim().toLowerCase()),
+  role: z.enum(["ADMIN", "SUPER_ADMIN"], {
+    message: "Role wajib dipilih",
+  }),
+});
+
+export type AddAdminInput = z.infer<typeof addAdminSchema>;
