@@ -119,11 +119,11 @@ Bagi Agent yang melanjutkan pekerjaan di proyek ini:
 1. **Koneksi Database MySQL Lokal / Staging**:
    - Pastikan server MySQL berjalan di port `3306` dengan database `spmb_db` (atau sesuaikan nilai `DATABASE_URL` pada `.env.local`).
    - Jalankan `npm run db:push` untuk menerapkan skema tabel ke MySQL.
-   - Jalankan `npm run db:seed` untuk membuat akun administrator awal (`admin@sekolah.sch.id`).
+   - Jalankan `npm run db:seed` untuk membuat akun administrator awal (`smkpgri02mejayan@gmail.com`).
 2. **Uji Coba Fungsional Browser (Opsional / Manual)**:
    - Jalankan `npm run dev` dan buka browser di `http://localhost:3000`.
    - Coba login menggunakan email murid baru untuk memastikan kode OTP tercetak di terminal dan formulir pendaftaran dapat disimpan.
-   - Coba login menggunakan `admin@sekolah.sch.id` untuk memverifikasi halaman panel admin.
+   - Coba login menggunakan `smkpgri02mejayan@gmail.com` untuk memverifikasi halaman panel admin.
 3. **Penyempurnaan Fitur Tambahan (Jika Diinginkan oleh Pengguna)**:
    - Upload berkas (foto/ijazah) jika ada instruksi tambahan dari pengguna di masa depan.
    - Ekspor data pendaftar ke file Excel/PDF dari tabel admin jika diperlukan.

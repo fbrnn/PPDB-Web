@@ -47,7 +47,7 @@ Tambahkan akun admin awal ke tabel `admin_allowlist`:
 ```bash
 npm run db:seed
 ```
-*Email default admin:* `admin@sekolah.sch.id`
+*Email default admin:* `smkpgri02mejayan@gmail.com`
 
 ### 5. Menjalankan Server Development
 ```bash

@@ -51,6 +51,25 @@ export function LoginForm() {
           life: 4000,
         });
       }
+    } catch (err: unknown) {
+      const errorMsg = err instanceof Error ? err.message : String(err);
+      if (errorMsg.includes("Failed to find Server Action") || errorMsg.includes("older or newer deployment")) {
+        toastRef.current?.show({
+          severity: "warn",
+          summary: "Sesi Diperbarui",
+          detail: "Aplikasi baru saja diperbarui. Memuat ulang halaman...",
+          life: 2500,
+        });
+        setTimeout(() => window.location.reload(), 1500);
+      } else {
+        setErrorMessage("Terjadi kesalahan koneksi. Silakan muat ulang halaman dan coba lagi.");
+        toastRef.current?.show({
+          severity: "error",
+          summary: "Gagal Mengirim",
+          detail: "Terjadi kesalahan. Silakan coba lagi.",
+          life: 4000,
+        });
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -88,13 +107,24 @@ export function LoginForm() {
         });
         setIsSubmitting(false);
       }
-    } catch (error) {
-      toastRef.current?.show({
-        severity: "error",
-        summary: "Kesalahan Sistem",
-        detail: "Terjadi kesalahan. Silakan coba lagi.",
-        life: 4000,
-      });
+    } catch (err: unknown) {
+      const errorMsg = err instanceof Error ? err.message : String(err);
+      if (errorMsg.includes("Failed to find Server Action") || errorMsg.includes("older or newer deployment")) {
+        toastRef.current?.show({
+          severity: "warn",
+          summary: "Sesi Diperbarui",
+          detail: "Aplikasi baru saja diperbarui. Memuat ulang halaman...",
+          life: 2500,
+        });
+        setTimeout(() => window.location.reload(), 1500);
+      } else {
+        toastRef.current?.show({
+          severity: "error",
+          summary: "Kesalahan Sistem",
+          detail: "Terjadi kesalahan. Silakan coba lagi.",
+          life: 4000,
+        });
+      }
       setIsSubmitting(false);
     }
   };

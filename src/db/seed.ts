@@ -6,7 +6,7 @@ import { adminAllowlist, users } from "./schema";
 async function seed() {
   console.log("🌱 Memulai seeding data awal SPMB...");
 
-  const defaultAdminEmail = "admin@sekolah.sch.id";
+  const defaultAdminEmail = "smkpgri02mejayan@gmail.com";
 
   // Cek apakah admin sudah ada di admin_allowlist
   const existingAllowlist = await db
@@ -24,7 +24,12 @@ async function seed() {
     });
     console.log(`✓ Menambahkan ${defaultAdminEmail} ke admin_allowlist (SUPER_ADMIN)`);
   } else {
-    console.log(`ℹ ${defaultAdminEmail} sudah terdaftar di admin_allowlist.`);
+    // Pastikan role-nya SUPER_ADMIN jika sudah ada
+    await db
+      .update(adminAllowlist)
+      .set({ role: "SUPER_ADMIN" })
+      .where(eq(adminAllowlist.email, defaultAdminEmail));
+    console.log(`ℹ ${defaultAdminEmail} sudah terdaftar di admin_allowlist (dipastikan SUPER_ADMIN).`);
   }
 
   // Cek apakah user sudah dibuat
@@ -43,7 +48,11 @@ async function seed() {
     });
     console.log(`✓ Akun pengguna awal untuk ${defaultAdminEmail} berhasil dibuat.`);
   } else {
-    console.log(`ℹ Akun pengguna untuk ${defaultAdminEmail} sudah ada.`);
+    await db
+      .update(users)
+      .set({ role: "SUPER_ADMIN" })
+      .where(eq(users.email, defaultAdminEmail));
+    console.log(`ℹ Akun pengguna untuk ${defaultAdminEmail} sudah ada (role dipastikan SUPER_ADMIN).`);
   }
 
   console.log("🎉 Seeding selesai!");
