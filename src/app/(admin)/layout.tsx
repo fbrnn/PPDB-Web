@@ -118,7 +118,7 @@ export default async function AdminLayout({
       </main>
 
       <footer className="bg-white border-t border-slate-200 py-5 text-center text-xs text-slate-400">
-        Panel Administrator SPMB Online &copy; {new Date().getFullYear()}
+        Panel Administrator SPMB Online SMK PGRI 2 Mejayan &copy; 2027
       </footer>
     </div>
   );
